@@ -1,0 +1,32 @@
+.list-group-item {
+    border:none !important;
+    display: inline-flex !important;
+    width: 99.5% !important;
+    padding: 0px !important;
+}
+
+.teste{
+    background: none !important;
+}
+
+.rfip {
+    display: inline !important;
+    margin: 0px !important;
+}
+
+.rfipbtn{
+    width: auto !important;
+    min-height: 39px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: .25rem !important;
+}
+
+.rfipbtn--bluegrey .rfipbtn__button{
+    background-color: #fff !important; 
+    border-left: 1px solid #ced4da !important;
+    color: #ced4da !important;
+}
+
+.modal-title .h4{
+    
+}

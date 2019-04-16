@@ -1,0 +1,8 @@
+.form-control{
+    background-color: #fff !important;
+    border: 1px solid #ced4da !important;
+}
+
+:-ms-input-placeholder {  
+    color: red;  
+ }
