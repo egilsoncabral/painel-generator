@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {Button, Modal} from 'react-bootstrap'
 import '../assets/css/modal.css'
 import axios from 'axios'
@@ -38,11 +38,10 @@ class ModalEdicao extends  Component{
 
     handleSubmit(event) {
         event.preventDefault()
-        axios.post('hhttp://localhost:3000/api/items_menu', this.state.form, { responseType: 'document' }).then((response) =>{
-            console.log(response)
+        axios.post('http://localhost:3000/api/items_menu', this.state.form, { responseType: 'document' }).then((response) =>{
             this.props.onHide()
         }).catch((error) => console.log(error))
-        console.log(this.state.form)
+        // console.log(this.state.form)
     }
 
     render(){
@@ -62,7 +61,7 @@ class ModalEdicao extends  Component{
                 </Modal.Header>
                 <form onSubmit={this.handleSubmit}>
                     <Modal.Body>
-                        
+
                         {<Component handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} form={this.state.form}/>}
                     </Modal.Body>
                     <Modal.Footer>
@@ -71,11 +70,11 @@ class ModalEdicao extends  Component{
                     </Modal.Footer>
                 </form>
             </Modal>
-        )   
+        )
     }
-    
 
-}  
+
+}
 
 // Modal.propTypes ={
 //     venue: PropTypes.object.isRequired

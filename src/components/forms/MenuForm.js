@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import FontIconPicker from '@fonticonpicker/react-fonticonpicker';
 import '@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.base-theme.react.css';
 import '@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.material-theme.react.css';
-import {icones} from '../ListaIcones'
+import {icones} from '../listaIcones'
 import {listaCores} from '../ListaCores'
 import Select from 'react-select';
 import axios from 'axios'
@@ -37,10 +37,10 @@ class MenuForm extends  Component{
             closeOnSelect: true,
             searchPlaceholder:'Pesquise pelo ícone'
           };
-        
+
         return (
             <div>
-                
+
                 <div className="form-row">
                         <div className="form-group col-md-6">
                             <label htmlFor="inputNome">Nome</label>
@@ -77,13 +77,13 @@ class MenuForm extends  Component{
                                 options={this.state.menuOptions}
                             />
                         </div>
-                        
+
                     </div>
-                    
+
             </div>
-        )   
+        )
     }
-    
+
 }
 
 export default MenuForm
