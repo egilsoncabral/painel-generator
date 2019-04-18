@@ -6,3 +6,7 @@
 :-ms-input-placeholder {  
     color: red;  
  }
+
+.btn-primary.disabled, .btn-primary:disabled{
+    color: #7A9E9F !important;
+}

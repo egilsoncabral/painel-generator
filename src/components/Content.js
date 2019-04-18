@@ -3,37 +3,70 @@ import '../assets/css/content.css'
 import ModalEdicao from './ModalEdicao';
 import {Button, ButtonToolbar} from 'react-bootstrap'
 import MenuForm from './forms/MenuForm';
+import ModalRemocao from './ModalRemocao';
 
 class Content extends Component {
 
-    state = { modalShow: false };
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalEdicaoShow: false, 
+            modalRemocaoShow: false,
+            selectedItens: []
+        };
+
+        this.handleSelect = this.handleSelect.bind(this)
+    }
+
 
     montaCabecalho(cabecalho){
         var colunas = []
-        colunas.push( <th scope="col" key="headerCheckbox">#</th>)
-        var keyCabecalhos = Object.keys(cabecalho);
-        for (const nome of keyCabecalhos) {
-            colunas.push( <th scope="col" key={nome}>{nome.charAt(0).toUpperCase() + nome.slice(1)}</th>)
+        if (cabecalho) {
+            colunas.push(<th scope="col" key="headerCheckbox">#</th>)
+            var keyCabecalhos = Object.keys(cabecalho);
+            for (const nome of keyCabecalhos) {
+                if (nome !== '_id' && nome !== '__v') {
+                    colunas.push(<th scope="col" key={nome}>{nome.charAt(0).toUpperCase() + nome.slice(1)}</th>)    
+                }
+                
+            }
         }
         return colunas
     }
 
     montaColuna(coluna){
         var colunas = []
-        colunas.push(<th scope="row" key="checkbox">
-                        <input type="checkbox" aria-label="Checkbox for following text input" />
-                       </th>)
-        for (const key in coluna) {
-            if (coluna.hasOwnProperty(key)) {
-                const element = coluna[key];
-                colunas.push(<td key={key}>{element}</td>)
+        if (coluna) {
+            colunas.push(<th scope="row" key="checkbox">
+                <input type="checkbox" id={coluna.nome} aria-label="Checkbox for following text input" onClick={this.handleSelect}/>
+            </th>)
+            for (const key in coluna) {
+                if (coluna.hasOwnProperty(key) && key !== '_id' && key !== '__v') {
+                    const element = coluna[key];
+                        colunas.push(<td key={key}>{element}</td>)
+                }
             }
         }
         return colunas
     }
 
+    handleSelect(event){
+        let itensSelecionados = this.state.selectedItens
+        if (event.target.checked) {
+            itensSelecionados.push(this.props.tabela.body.find(itemMenu => {
+                return itemMenu.nome === event.target.id
+            }))
+        } else{
+            itensSelecionados = itensSelecionados.filter(itemMenu => {
+                return itemMenu.nome !== event.target.id
+            })
+        }
+        
+        this.setState({selectedItens : itensSelecionados})
+    }
+
     render(){
-        let modalClose = () => this.setState({ modalShow: false });
+        let modalClose = () => this.setState({ modalEdicaoShow: false, modalRemocaoShow: false});
         return(
         <div className="main-panel">
             <nav className="navbar navbar-default">
@@ -62,7 +95,7 @@ class Content extends Component {
                                                         <div className="col">
                                                         <Button
                                                         variant="primary"
-                                                        onClick={() => this.setState({ modalShow: true })}
+                                                        onClick={() => this.setState({ modalEdicaoShow: true })}
                                                         >
                                                         + Adicionar
                                                         </Button>
@@ -70,14 +103,20 @@ class Content extends Component {
                                                         <div className="col">
                                                         <Button
                                                         variant="primary"
-                                                        onClick={() => this.setState({ modalShow: true })}
+                                                        onClick={() => this.setState({ modalRemocaoShow: true })}
+                                                        disabled={this.state.selectedItens.length > 0 ? false : true}
                                                         >
                                                         <i className="ti-trash"></i>Remover
                                                         </Button>
                                                         </div>
                                                         <ModalEdicao
                                                         componente={MenuForm}
-                                                        show={this.state.modalShow}
+                                                        show={this.state.modalEdicaoShow}
+                                                        onHide={modalClose}
+                                                        />
+                                                        <ModalRemocao
+                                                        itensExclusao={this.state.selectedItens}
+                                                        show={this.state.modalRemocaoShow}
                                                         onHide={modalClose}
                                                         />
                                                     </ButtonToolbar>

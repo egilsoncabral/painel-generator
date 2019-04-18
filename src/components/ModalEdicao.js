@@ -46,7 +46,6 @@ class ModalEdicao extends  Component{
 
     render(){
 
-        const Component = this.props.componente
         return (
             <Modal
                 {...this.props}
@@ -61,8 +60,10 @@ class ModalEdicao extends  Component{
                 </Modal.Header>
                 <form onSubmit={this.handleSubmit}>
                     <Modal.Body>
-
-                        {<Component handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} form={this.state.form}/>}
+                        <React.Fragment>
+                            <this.props.componente handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} form={this.state.form}/>
+                        </React.Fragment>
+                        
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.props.onHide}>Fechar</Button>

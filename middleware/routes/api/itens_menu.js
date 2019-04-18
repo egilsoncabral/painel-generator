@@ -29,10 +29,12 @@ router.post('/', (req, res) => {
 // @route DELETE api/items_menu/:id
 // @desc  Delete A Item
 // @access Public
-router.delete('/:id', (req, res) => {
-  ItemMenu.findById(req.params.id)
-    .then(item => item.remove().then( () => res.json({message: "Item deleted!!!"})))
-    .catch(err => res.status(404).json({message: "Faield to delete"}))
+router.delete('/', (req, res) => {
+ 
+    ItemMenu.deleteMany({_id: req.body.map(item => item._id)})
+    .then(() => res.json({message: "Item deleted!!!"}))
+    .catch(err => res.status(500).json({message: "Failed to delete by " + err}))
+  
 })
 
 module.exports = router;

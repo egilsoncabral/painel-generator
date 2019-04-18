@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import FontIconPicker from '@fonticonpicker/react-fonticonpicker';
 import '@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.base-theme.react.css';
 import '@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.material-theme.react.css';
-import {icones} from '../listaIcones'
+import {icones} from '../ListaIcones'
 import {listaCores} from '../ListaCores'
 import Select from 'react-select';
 import axios from 'axios'

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SideMenu from './SideMenu';
 import Content from './Content';
+import axios from 'axios'
 
 class Home extends Component {
 
@@ -11,7 +12,17 @@ class Home extends Component {
       {titulo:'Indicadores', icon:'ti-view-list-alt'},
       {titulo:'Gráficos', icon:'ti-pie-chart'},
     ],
-    selectedMenu:{titulo: 'Menus', body:[{nome:'Monitoramento MP', icon: 'trash', cor:'darken-red', identificador:'card-monitoramento', menu_Pai: '', sub_Menu: ''}]}
+    selectedMenu:{titulo: 'Menus', body:[]}
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3000/api/items_menu').then((response) => {
+      let menu = this.state.selectedMenu
+      if (response.data && response.data.length > 0) {
+        menu.body = response.data
+      }
+      this.setState({ selectedMenu: menu })
+    }).catch((error) => console.log(error))
   }
 
     render() {
