@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
-import FontIconPicker from '@fonticonpicker/react-fonticonpicker';
-import '@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.base-theme.react.css';
-import '@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.material-theme.react.css';
-import {icones} from '../ListaIcones'
-import {listaCores} from '../ListaCores'
-import Select from 'react-select';
-import axios from 'axios'
+import React, { Component } from "react";
+import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
+import "@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.base-theme.react.css";
+import "@fonticonpicker/react-fonticonpicker/dist/fonticonpicker.material-theme.react.css";
+import { icones } from "../ListaIcones";
+import { listaCores } from "../ListaCores";
+import Select from "react-select";
+import axios from "axios";
 
-class MenuForm extends  Component{
+class MenuForm extends Component {
+  state = {
+    menuOptions: []
+  };
 
-    state={
-        menuOptions: []
-    }
 
     componentDidMount(){
         axios.get('http://localhost:3000/api/items_menu').then((response) =>{
@@ -86,4 +86,4 @@ class MenuForm extends  Component{
 
 }
 
-export default MenuForm
+export default MenuForm;
