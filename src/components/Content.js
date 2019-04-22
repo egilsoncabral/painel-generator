@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import '../assets/css/content.css'
 import ModalEdicao from './ModalEdicao';
-import {Button, ButtonToolbar} from 'react-bootstrap'
+import {Button, ButtonToolbar, Dropdown, DropdownButton} from 'react-bootstrap'
 import MenuForm from './forms/MenuForm';
 import ModalRemocao from './ModalRemocao';
 
@@ -88,29 +88,35 @@ class Content extends Component {
                                             <h4 className="title">Itens</h4>
                                         </div>
                                         <div className="col">
-                                            <div className="float-right">
-                                                <ul className="nav navbar-nav navbar-right">
+                                                <ul className="nav navbar-nav navbar-right float-right">
                                                     <li>
                                                     <ButtonToolbar>
                                                         <div className="col">
-                                                        <Button
-                                                        variant="primary"
-                                                        onClick={() => this.setState({ modalEdicaoShow: true })}
+                                                        <DropdownButton
+                                                            variant="primary"
+                                                            id={`dropdown-button-drop-down`}
+                                                            key='down' drop="left"
+                                                            title=""
                                                         >
-                                                        + Adicionar
-                                                        </Button>
-                                                        </div>
-                                                        <div className="col">
-                                                        <Button
+                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true })} disabled={this.state.selectedItens.length > 0 ? true : false}>+ Adicionar</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true })}
+                                                            disabled={this.state.selectedItens.length === 1 ? false : true}>Editar</Dropdown.Item>
+                                                            <Dropdown.Divider />
+                                                            <Dropdown.Item onClick={() => this.setState({ modalRemocaoShow: true })} 
+                                                                disabled={this.state.selectedItens.length > 0 ? false : true}><i className="ti-trash"></i>Remover</Dropdown.Item>
+                                                        </DropdownButton>
+                                                       
+                                                        {/* <Button
                                                         variant="primary"
                                                         onClick={() => this.setState({ modalRemocaoShow: true })}
                                                         disabled={this.state.selectedItens.length > 0 ? false : true}
                                                         >
                                                         <i className="ti-trash"></i>Remover
-                                                        </Button>
+                                                        </Button> */}
                                                         </div>
                                                         <ModalEdicao
                                                         componente={MenuForm}
+                                                        itens={this.state.selectedItens}
                                                         show={this.state.modalEdicaoShow}
                                                         onHide={modalClose}
                                                         />
@@ -122,7 +128,6 @@ class Content extends Component {
                                                     </ButtonToolbar>
                                                     </li>
                                                 </ul>
-                                            </div>
                                         </div>
                                     </div>
                                     

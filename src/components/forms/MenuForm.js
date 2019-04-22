@@ -19,7 +19,7 @@ class MenuForm extends  Component{
             let selectOption = []
             if (response.data && response.data.length > 0 ) {
                 for (const menu of response.data) {
-                    selectOption.push({value: menu.nome.toLowerCase().trim(), label: menu.nome , nome:"menuSelectOption"})                    
+                    selectOption.push({value: menu.nome !== null ? menu.nome.toLowerCase().trim() : '', label: menu.nome , nome:"menuSelectOption"})                    
                 }
             }
             this.setState({menuOptions: selectOption})
@@ -44,18 +44,18 @@ class MenuForm extends  Component{
                 <div className="form-row">
                         <div className="form-group col-md-6">
                             <label htmlFor="inputNome">Nome</label>
-                            <input type="text" name="nome" className="form-control" id="inputNome" placeholder="Nome" onChange={this.props.handleInputChange} required/>
+                            <input type="text" name="nome" value={this.props.form && this.props.form.nome } className="form-control" id="inputNome" placeholder="Nome" onChange={this.props.handleInputChange} required/>
                         </div>
                         <div className="form-group col-md-6">
                         <label htmlFor="inputIcone">Icone</label>
-                         <FontIconPicker {...props} value={this.props.form.selectedIcon}/>
+                        <FontIconPicker {...props} value={this.props.form && this.props.form.selectedIcon}/>
                         </div>
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6">
                         <label htmlFor="inputColor">Cor do Ícone</label>
                             <Select
-                                value={this.props.colorSelectOption}
+                                defaultInputValue={this.props.form && this.props.form.colorSelectOption}
                                 onChange={this.props.handleInputChange}
                                 placeholder="Selecione"
                                 options={listaCores}
@@ -63,7 +63,7 @@ class MenuForm extends  Component{
                         </div>
                         <div className="form-group col-md-6">
                         <label htmlFor="inputIdCard">Identificador do Card</label>
-                            <input type="text" name="idCard" className="form-control" id="inputIdCard" placeholder="identificador" onChange={this.props.handleInputChange} required/>
+                            <input type="text" name="idCard" value={this.props.form && this.props.form.idCard} className="form-control" id="inputIdCard" placeholder="identificador" onChange={this.props.handleInputChange} required/>
                         </div>
                     </div>
                     <div className="form-row">
@@ -71,7 +71,7 @@ class MenuForm extends  Component{
                         <label htmlFor="inputCity">Sub Menu</label>
                             <Select
                                 isMulti
-                                value={this.props.menuSelectOption}
+                                
                                 onChange={this.props.handleInputChange}
                                 placeholder="Selecione"
                                 options={this.state.menuOptions}

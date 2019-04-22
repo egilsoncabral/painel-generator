@@ -16,7 +16,11 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/items_menu').then((response) => {
+    this.consultaMenu('items_menu')
+  }
+
+  consultaMenu(query){
+    axios.get(`http://localhost:3000/api/${query}`).then((response) => {
       let menu = this.state.selectedMenu
       if (response.data && response.data.length > 0) {
         menu.body = response.data

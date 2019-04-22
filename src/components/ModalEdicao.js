@@ -9,18 +9,22 @@ class ModalEdicao extends  Component{
     constructor(props) {
         super(props);
         this.state = {
-            form: {
-                nome: '',
-                idCard:'',
-                colorSelectOption: null,
-                menuSelectOption: null,
-                selectedIcon:null
-            }
+            
         };
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
+
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.form !== this.props.itens[0]) {
+          this.setState({ form: nextProps.itens[0] })
+        }else{
+            this.setState({ form: {}})
+        }
+      }
+    
 
     handleInputChange(event) {
         const target = event.target !== undefined ? event.target : event;
@@ -32,8 +36,11 @@ class ModalEdicao extends  Component{
     }
     handleChange = (value) => {
         let formAtual = this.state.form
-        formAtual.selectedIcon = value
+        if (formAtual) {
+            formAtual.selectedIcon = value
         this.setState({ form: formAtual});
+        }
+        
     }
 
     handleSubmit(event) {
@@ -61,7 +68,8 @@ class ModalEdicao extends  Component{
                 <form onSubmit={this.handleSubmit}>
                     <Modal.Body>
                         <React.Fragment>
-                            <this.props.componente handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} form={this.state.form}/>
+                            <this.props.componente handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} 
+                            form={this.state.form}/>
                         </React.Fragment>
                         
                     </Modal.Body>

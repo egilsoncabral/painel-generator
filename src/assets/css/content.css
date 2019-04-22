@@ -10,3 +10,27 @@ a {
     
     padding-bottom: 20px !important;
 }
+
+.test:after {
+    content: '\2807';
+    font-size: 3em;
+    color: #2e2e2e
+}
+
+.dropleft .dropdown-toggle::before{
+    content: '\2807' !important;
+    font-size: 2em;
+    color: #2e2e2e;
+    border: none !important;
+    margin:0px !important;
+    align-items: center;
+}
+
+.btn-primary{
+    border:none !important;
+}
+
+.show{
+    opacity: inherit !important;
+    visibility: visible !important;
+}
