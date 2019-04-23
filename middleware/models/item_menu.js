@@ -10,15 +10,15 @@ const ItemMenuSchema = new Schema({
     type: String,
     required: false
   },
-  menuSelectOption: {
+  subMenu: {
     type: String,
     required: false
   },
-  colorSelectOption: {
+  cor: {
     type: String,
     required: false
   },
- selectedIcon: {
+ icone: {
    type: String,
    required: false
  }

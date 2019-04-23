@@ -25,6 +25,9 @@ class Home extends Component {
         let menu = this.state.selectedMenu;
         if (response.data && response.data.length > 0) {
           menu.body = response.data;
+          let itemMenu = this.state.itensMenu.find(item => item.link === doMenu)
+          menu.titulo = itemMenu.titulo
+          menu.link = itemMenu.link
         }
         this.setState({ selectedMenu: menu });
       })
@@ -35,7 +38,7 @@ class Home extends Component {
     return (
       <div id="pnlHome">
         <SideMenu itensMenu={this.state.itensMenu} cargaItems={this.carregarItems} />
-        <Content tabela={this.state.selectedMenu} />
+        <Content tabela={this.state.selectedMenu} cargaItems={this.carregarItems}/>
       </div>
     );
   }

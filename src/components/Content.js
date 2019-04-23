@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import '../assets/css/content.css'
 import ModalEdicao from './ModalEdicao';
-import {Button, ButtonToolbar, Dropdown, DropdownButton} from 'react-bootstrap'
+import {ButtonToolbar, Dropdown, DropdownButton} from 'react-bootstrap'
 import MenuForm from './forms/MenuForm';
 import ModalRemocao from './ModalRemocao';
 
@@ -79,7 +79,6 @@ class Content extends Component {
             <div className="content">
                 <div className="container-fluid">
                     <div className="row">
-
                         <div className="col-md-12">
                             <div className="card">
                                 <div className="header">
@@ -105,25 +104,21 @@ class Content extends Component {
                                                             <Dropdown.Item onClick={() => this.setState({ modalRemocaoShow: true })} 
                                                                 disabled={this.state.selectedItens.length > 0 ? false : true}><i className="ti-trash"></i>Remover</Dropdown.Item>
                                                         </DropdownButton>
-                                                       
-                                                        {/* <Button
-                                                        variant="primary"
-                                                        onClick={() => this.setState({ modalRemocaoShow: true })}
-                                                        disabled={this.state.selectedItens.length > 0 ? false : true}
-                                                        >
-                                                        <i className="ti-trash"></i>Remover
-                                                        </Button> */}
                                                         </div>
                                                         <ModalEdicao
-                                                        componente={MenuForm}
+                                                        component={MenuForm}
                                                         itens={this.state.selectedItens}
                                                         show={this.state.modalEdicaoShow}
                                                         onHide={modalClose}
+                                                        selectedMenu={this.props.tabela}
+                                                        cargaItems={this.props.cargaItems}
                                                         />
                                                         <ModalRemocao
-                                                        itensExclusao={this.state.selectedItens}
+                                                        itens={this.state.selectedItens}
                                                         show={this.state.modalRemocaoShow}
                                                         onHide={modalClose}
+                                                        selectedMenu={this.props.tabela}
+                                                        cargaItems={this.props.cargaItems}
                                                         />
                                                     </ButtonToolbar>
                                                     </li>
@@ -141,8 +136,8 @@ class Content extends Component {
                                             </thead>
                                             
                                             <tbody>
-                                                {this.props.tabela.body ? this.props.tabela.body.map(itensBody =>
-                                                    <tr key={itensBody.nome} style={{textAlign:'center'}}>
+                                                {this.props.tabela.body ? this.props.tabela.body.map((itensBody, index) =>
+                                                    <tr key={itensBody.nome + index} style={{textAlign:'center'}}>
                                                         {this.montaColuna(itensBody)}
                                                     </tr>
                                                 ):  ''}
@@ -152,7 +147,6 @@ class Content extends Component {
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             

@@ -13,8 +13,10 @@ class ModalRemocao extends  Component{
 
 
     removeItens(){
-        let itensRemocao = this.props.itensExclusao
+        let itensRemocao = this.props.itens
+        let link = this.props.selectedMenu.link
         axios.delete('http://localhost:3000/api/items_menu', {data: itensRemocao}).then((response) =>{
+            this.props.cargaItems(link) 
             this.props.onHide()
         }).catch((error) => console.log(error))
     }
@@ -23,7 +25,8 @@ class ModalRemocao extends  Component{
 
         return (
             <Modal
-                {...this.props}
+                show={this.props.show}
+                onHide={this.props.onHide}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
@@ -37,7 +40,7 @@ class ModalRemocao extends  Component{
                         <div>
                         
                         <ul className="nav">
-                            {this.props.itensExclusao.map(item => 
+                            {this.props.itens.map(item => 
                                 <li key={item.nome} className="list-group-item">{item.nome}</li>
                             )}
                         </ul>

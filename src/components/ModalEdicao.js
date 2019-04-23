@@ -37,7 +37,7 @@ class ModalEdicao extends  Component{
     handleChange = (value) => {
         let formAtual = this.state.form
         if (formAtual) {
-            formAtual.selectedIcon = value
+            formAtual.icone = value
         this.setState({ form: formAtual});
         }
         
@@ -45,7 +45,13 @@ class ModalEdicao extends  Component{
 
     handleSubmit(event) {
         event.preventDefault()
-        axios.post('http://localhost:3000/api/items_menu', this.state.form, { responseType: 'document' }).then((response) =>{
+        let form = this.state.form
+        if (form.subMenu === undefined) {
+            form.subMenu = ''
+        }
+        let link = this.props.selectedMenu.link
+        axios.post('http://localhost:3000/api/items_menu', form, { responseType: 'document' }).then((response) =>{
+            this.props.cargaItems(link)    
             this.props.onHide()
         }).catch((error) => console.log(error))
         // console.log(this.state.form)
@@ -55,7 +61,8 @@ class ModalEdicao extends  Component{
 
         return (
             <Modal
-                {...this.props}
+                show={this.props.show}
+                onHide={this.props.onHide}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
@@ -68,7 +75,7 @@ class ModalEdicao extends  Component{
                 <form onSubmit={this.handleSubmit}>
                     <Modal.Body>
                         <React.Fragment>
-                            <this.props.componente handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} 
+                            <this.props.component handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} 
                             form={this.state.form}/>
                         </React.Fragment>
                         

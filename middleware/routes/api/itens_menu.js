@@ -19,9 +19,9 @@ router.post('/', (req, res) => {
   const newItem = new ItemMenu({
     nome: req.body.nome,
     idCard: req.body.idCard,
-    menuSelectOption: req.body.menuSelectOption,
-    colorSelectOption: req.body.colorSelectOption,
-    selectedIcon: req.body.selectedIcon
+    subMenu: req.body.subMenu,
+    cor: req.body.cor,
+    icone: req.body.icone
  });
   newItem.save().then(item => res.json(item));
 });
