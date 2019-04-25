@@ -12,19 +12,34 @@ router.get('/', (req, res) => {
     .then(items => res.json(items))
 });
 
-// @route POST api/items_menu
-// @desc  Create A Item
-// @access Public
 router.post('/', (req, res) => {
-  const newItem = new ItemMenu({
-    nome: req.body.nome,
-    idCard: req.body.idCard,
-    subMenu: req.body.subMenu,
-    cor: req.body.cor,
-    icone: req.body.icone
- });
-  newItem.save().then(item => res.json(item));
+  if (req.body._id === undefined) {
+    insertItem(req, res)
+  }else{
+    updateItem(req,res)
+  }
 });
+
+function insertItem(req, res){
+  const newItem = new ItemMenu({
+        nome: req.body.nome,
+        idCard: req.body.idCard,
+        subMenu: req.body.subMenu,
+        cor: req.body.cor,
+        icone: req.body.icone
+     });
+  newItem.save().then(item => res.json(item));
+}
+
+function updateItem(req, res){
+    ItemMenu.findOneAndUpdate({_id: req.body._id}, req.body, {new:true}, (err, doc) =>{
+      if(!err) {
+        res.status(200).json(doc)
+      }else{
+        res.status(500).json({message: "Failed to update by " + err})
+      }
+    })
+}
 
 // @route DELETE api/items_menu/:id
 // @desc  Delete A Item
