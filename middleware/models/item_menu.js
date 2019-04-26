@@ -11,7 +11,7 @@ const ItemMenuSchema = new Schema({
     required: false
   },
   subMenu: {
-    type: String,
+    type: Array,
     required: false
   },
   cor: {

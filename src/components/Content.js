@@ -3,6 +3,7 @@ import '../assets/css/content.css'
 import ModalEdicao from './ModalEdicao';
 import {ButtonToolbar, Dropdown, DropdownButton} from 'react-bootstrap'
 import MenuForm from './forms/MenuForm';
+import PaginaForm from './forms/PaginaForm';
 import ModalRemocao from './ModalRemocao';
 
 class Content extends Component {
@@ -43,7 +44,7 @@ class Content extends Component {
             for (const key in coluna) {
                 if (coluna.hasOwnProperty(key) && key !== '_id' && key !== '__v') {
                     const element = coluna[key];
-                        colunas.push(<td key={key}>{element}</td>)
+                        colunas.push(<td key={key}>{Array.isArray(element) ? element.map((el, index) => index === 0 ? el.label : ', ' + el.label  ) : element}</td>)
                 }
             }
         }
@@ -106,7 +107,7 @@ class Content extends Component {
                                                         </DropdownButton>
                                                         </div>
                                                         <ModalEdicao
-                                                        component={MenuForm}
+                                                        component={PaginaForm}
                                                         itens={this.state.selectedItens}
                                                         show={this.state.modalEdicaoShow}
                                                         onHide={modalClose}
