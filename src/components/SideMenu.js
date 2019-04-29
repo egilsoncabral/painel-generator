@@ -20,7 +20,6 @@ class SideMenu extends Component {
             {this.props.itensMenu.map(item => (
               <li className="list-group-item" key={item.titulo}>
                 <a
-                  href="/#"
                   onClick={() => {
                     this.props.cargaItems(item.link);
                   }}

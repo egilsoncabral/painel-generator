@@ -67,6 +67,7 @@ class Content extends Component {
     }
 
     render(){
+        console.log(this.props.tabela.form)
         let modalClose = () => this.setState({ modalEdicaoShow: false, modalRemocaoShow: false});
         return(
         <div className="main-panel">
@@ -107,7 +108,7 @@ class Content extends Component {
                                                         </DropdownButton>
                                                         </div>
                                                         <ModalEdicao
-                                                        component={PaginaForm}
+                                                        component={this.props.tabela.form}
                                                         itens={this.state.selectedItens}
                                                         show={this.state.modalEdicaoShow}
                                                         onHide={modalClose}

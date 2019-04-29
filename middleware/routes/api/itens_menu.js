@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const ItemMenu = require('../../models/item_menu');
 const ItemMenuController = require('../../controllers/itemMenuController')
 
 // @route GET api/items_menu

@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import SideMenu from "./SideMenu";
 import Content from "./Content";
 import axios from "axios";
+import MenuForm from "./forms/MenuForm";
+import PaginaForm from "./forms/PaginaForm";
 
 class Home extends Component {
   state = {
     itensMenu: [
-      { titulo: "Menus", icon: "ti-panel", link: "items_menu" },
-      { titulo: "Páginas", icon: "ti-files", link: "paginas" },
-      { titulo: "Indicadores", icon: "ti-view-list-alt", link: "indicadores" },
-      { titulo: "Gráficos", icon: "ti-pie-chart", link: "graficos" }
+      { titulo: "Menus", icon: "ti-panel", link: "items_menu", form: MenuForm },
+      { titulo: "Páginas", icon: "ti-files", link: "paginas", form: PaginaForm},
+      { titulo: "Indicadores", icon: "ti-view-list-alt", link: "indicadores", form: {}},
+      { titulo: "Gráficos", icon: "ti-pie-chart", link: "graficos", form:{} }
     ],
     selectedMenu: { titulo: "Menus", body: [] }
   };
@@ -28,6 +30,7 @@ class Home extends Component {
           let itemMenu = this.state.itensMenu.find(item => item.link === doMenu)
           menu.titulo = itemMenu.titulo
           menu.link = itemMenu.link
+          menu.form = itemMenu.form
         }
         this.setState({ selectedMenu: menu });
       })
