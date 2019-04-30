@@ -3,6 +3,7 @@
     display: inline-flex !important;
     width: 99.5% !important;
     padding: 0px !important;
+    cursor: pointer;
 }
 
 .teste{
@@ -22,11 +23,11 @@
 }
 
 .rfipbtn--bluegrey .rfipbtn__button{
-    background-color: #fff !important; 
+    background-color: #fff !important;
     border-left: 1px solid #ced4da !important;
     color: #ced4da !important;
 }
 
 .modal-title .h4{
-    
+
 }

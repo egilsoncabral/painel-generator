@@ -1,9 +1,9 @@
 const ItemMenu = require('../models/item_menu');
 const Repository = require('../services/repository');
 
-module.exports = ItemMenuController = {
+module.exports = {
 
-  criar: create = (dados, resposta) =>{
+  criar: (dados, resposta) =>{
     const item = new ItemMenu({
         nome: dados.nome,
         idCard: dados.idCard,
@@ -14,13 +14,13 @@ module.exports = ItemMenuController = {
      Repository.novoItem(item, resposta)
   },
 
-  listar: listar = resposta =>
+  listar: resposta =>
     Repository.obterLista(ItemMenu, resposta),
 
-  atualizar: atualizar = (atualizado, resposta) =>
+  atualizar: (atualizado, resposta) =>
     Repository.atualizarItem(ItemMenu, atualizado, resposta),
 
-  remover: remover = (items, resultado) =>
+  remover: (items, resultado) =>
     Repository.remover(ItemMenu, items, resultado)
 
 }

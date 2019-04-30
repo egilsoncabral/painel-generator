@@ -4,13 +4,14 @@ import Content from "./Content";
 import axios from "axios";
 import MenuForm from "./forms/MenuForm";
 import PaginaForm from "./forms/PaginaForm";
+import IndicadorForm from "./forms/IndicadorForm";
 
 class Home extends Component {
   state = {
     itensMenu: [
       { titulo: "Menus", icon: "ti-panel", link: "items_menu", form: MenuForm },
       { titulo: "Páginas", icon: "ti-files", link: "paginas", form: PaginaForm},
-      { titulo: "Indicadores", icon: "ti-view-list-alt", link: "indicadores", form: {}},
+      { titulo: "Indicadores", icon: "ti-view-list-alt", link: "indicadores", form: IndicadorForm},
       { titulo: "Gráficos", icon: "ti-pie-chart", link: "graficos", form:{} }
     ],
     selectedMenu: { titulo: "Menus", body: [] }
