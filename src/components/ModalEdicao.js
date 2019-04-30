@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 // import PropTypes from 'prop-types';
-import MenuForm from './forms/MenuForm'
 import {Button, Modal} from 'react-bootstrap'
 import '../assets/css/modal.css'
 import axios from 'axios'

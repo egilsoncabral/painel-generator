@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import '../assets/css/content.css'
 import ModalEdicao from './ModalEdicao';
 import {ButtonToolbar, Dropdown, DropdownButton} from 'react-bootstrap'
-import MenuForm from './forms/MenuForm';
-import PaginaForm from './forms/PaginaForm';
 import ModalRemocao from './ModalRemocao';
 
 class Content extends Component {
