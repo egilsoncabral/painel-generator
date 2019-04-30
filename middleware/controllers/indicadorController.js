@@ -1,7 +1,7 @@
 const Indicador = require('../models/indicadores');
 const Repository = require('../services/repository');
 
-module.exports = IndicadorController = {
+module.exports = {
 
   criar: (dados, resposta) =>{
     console.log(dados)

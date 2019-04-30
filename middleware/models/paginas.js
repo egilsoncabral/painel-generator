@@ -13,4 +13,4 @@ const PaginaSchema = new Schema({
 
 });
 
-module.exports = Pagina = mongoose.model('paginas', PaginaSchema);
+module.exports = mongoose.model('paginas', PaginaSchema);

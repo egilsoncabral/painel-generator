@@ -28,4 +28,4 @@ const IndicadorSchema = new Schema({
   }
 });
 
-module.exports = Indicador = mongoose.model('indicadores', IndicadorSchema);
+module.exports = mongoose.model('indicadores', IndicadorSchema);
