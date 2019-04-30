@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 
 const itemMenu = require('../routes/api/itens_menu');
 const paginas = require('../routes/api/paginas');
+const indicadores = require('../routes/api/indicadores');
 
 const app = express();
 
@@ -18,6 +19,7 @@ mongoose
 
 app.use('/api/items_menu', itemMenu);
 app.use('/api/paginas', paginas);
+app.use('/api/indicadores', indicadores);
 
 const PORT = process.env.PORT || 5000;
 

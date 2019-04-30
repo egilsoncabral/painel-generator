@@ -10,6 +10,7 @@ module.exports = Repository = {
                    .catch(err => resposta.json({msg: MSG_ERRO + "de inclusão: " + err})),
 
   novoItem: novoItem = (doTipo, resposta) => {
+    console.log(doTipo)
     doTipo.save().then(item => resposta.json(item));
   },
 
