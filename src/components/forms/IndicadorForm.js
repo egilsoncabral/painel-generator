@@ -7,15 +7,27 @@ import { listaCores } from "../ListaCores";
 import Select from "react-select";
 import axios from "axios";
 
+var _contextlocation = window.location.origin;
+var _urlContent = "/run.bip?BIP_REQUEST_TYPE=BIP_RUN&BIP_folder=IBFS:/WFC/Repository/";
+var _ibiapp = "painelestrategicoinss/";
+
 class IndicadorForm extends Component {
   state = {
-    menuOptions: []
+    listaMasters: []
   };
 
 
     componentDidMount(){
-
-    }
+      axios.get(`${_contextlocation}/ibi_apps${_urlContent}${_ibiapp}comum&BIP_item=lista_masters.fex&rnd=${Math.random()}`).then((response) =>{
+          let selectOption = []
+          if (response.data && response.data.length > 0 ) {
+              for (const menu of response.data) {
+                  selectOption.push({value: menu.nome !== null ? menu.nome.replace(/ /g,"-").toLowerCase(): '', label: menu.nome , name:"master"})                    
+              }
+          }
+          this.setState({listaMasters: selectOption})
+      }).catch((error) => console.log(error))
+  }
 
 
     render(){
@@ -100,6 +112,18 @@ class IndicadorForm extends Component {
                         onChange={this.props.handleInputChange}
                         required/>
                   </div>
+                  <div className="form-row">
+                        <div className="form-group col-md-6">
+                        <label htmlFor="inputCity">Lista de Masters</label>
+                            <Select
+                                value={this.props.form && this.props.form.master && this.props.form.master.filter(option => option.label)}
+                                onChange={this.props.handleInputChange}
+                                placeholder="Selecione"
+                                options={this.state.listaMasters}
+                            />
+                        </div>
+
+                    </div>
                 </div>
 
             </div>

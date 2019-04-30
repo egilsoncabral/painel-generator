@@ -75,7 +75,6 @@ class MenuForm extends Component {
                             <Select
                                 isMulti
                                 value={this.props.form && this.props.form.subMenu && this.props.form.subMenu.filter(option => option.label)}
-                                tabSelectsValue
                                 onChange={this.props.handleInputChange}
                                 placeholder="Selecione"
                                 options={this.state.menuOptions}
