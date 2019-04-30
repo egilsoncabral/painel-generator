@@ -15,7 +15,6 @@ class MenuForm extends Component {
 
     componentDidMount(){
         axios.get('http://localhost:3000/api/items_menu').then((response) =>{
-            console.log(response)
             let selectOption = []
             if (response.data && response.data.length > 0 ) {
                 for (const menu of response.data) {
@@ -37,6 +36,10 @@ class MenuForm extends Component {
             closeOnSelect: true,
             searchPlaceholder:'Pesquise pelo ícone'
           };
+        if (this.state.form && this.props.form.subMenu) {
+            this.setState({menuOptions: this.props.form.subMenu})     
+        }
+        
 
         return (
             <div>
@@ -71,7 +74,8 @@ class MenuForm extends Component {
                         <label htmlFor="inputCity">Sub Menu</label>
                             <Select
                                 isMulti
-                                defaultInputValue={this.props.form && this.props.form.subMenu}
+                                value={this.props.form && this.props.form.subMenu && this.props.form.subMenu.filter(option => option.label)}
+                                tabSelectsValue
                                 onChange={this.props.handleInputChange}
                                 placeholder="Selecione"
                                 options={this.state.menuOptions}

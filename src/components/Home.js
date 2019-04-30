@@ -25,13 +25,15 @@ class Home extends Component {
       .get(`http://localhost:3000/api/${doMenu}`)
       .then(response => {
         let menu = this.state.selectedMenu;
+        let itemMenu = this.state.itensMenu.find(item => item.link === doMenu)
         if (response.data && response.data.length > 0) {
           menu.body = response.data;
-          let itemMenu = this.state.itensMenu.find(item => item.link === doMenu)
-          menu.titulo = itemMenu.titulo
-          menu.link = itemMenu.link
-          menu.form = itemMenu.form
+        }else{
+          menu.body = []
         }
+        menu.titulo = itemMenu.titulo
+        menu.link = itemMenu.link
+        menu.form = itemMenu.form
         this.setState({ selectedMenu: menu });
       })
       .catch(error => console.log(error));

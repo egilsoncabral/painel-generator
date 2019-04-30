@@ -15,7 +15,7 @@ class ModalRemocao extends  Component{
     removeItens(){
         let itensRemocao = this.props.itens
         let link = this.props.selectedMenu.link
-        axios.delete('http://localhost:3000/api/items_menu', {data: itensRemocao}).then((response) =>{
+        axios.delete(`http://localhost:3000/api/${link}`, {data: itensRemocao}).then((response) =>{
             this.props.cargaItems(link) 
             this.props.onHide()
         }).catch((error) => console.log(error))

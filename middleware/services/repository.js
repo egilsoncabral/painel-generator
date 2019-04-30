@@ -24,7 +24,7 @@ module.exports = Repository = {
   },
 
   remover: remover = (itemDoTipo, items, resultado) => {
-    ItemMenu.deleteMany({_id: items.map(item => item._id)})
+    itemDoTipo.deleteMany({_id: items.map(item => item._id)})
       .then(() => resultado.json({msg: MSG_SUCESSO + "Item removido!!!"}))
       .catch(err => resultado.status(500).json({msg: MSG_ERRO + "de remoção " + err}))
   }

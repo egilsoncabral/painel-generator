@@ -31,7 +31,9 @@ class ModalEdicao extends  Component{
         const target = event.target !== undefined ? event.target : event;
         let formAtual = this.state.form
         if (Array.isArray(target)) {
-            formAtual[target[0].name] = target
+            if (target.length > 0) {
+                formAtual[target[0].name] = target
+            }
         }else{
             formAtual[target.name] = target.value
         }
@@ -51,11 +53,12 @@ class ModalEdicao extends  Component{
     handleSubmit(event) {
         event.preventDefault()
         let form = this.state.form
-        if (form.subMenu === undefined) {
-            form.subMenu = ''
-        }
         let link = this.props.selectedMenu.link
-        axios.post('http://localhost:3000/api/items_menu', form, { responseType: 'document' }).then((response) =>{
+        if (form.subMenu === undefined && link === 'items_menu') {
+            form.subMenu = []
+        }
+        
+        axios.post(`http://localhost:3000/api/${link}`, form, { responseType: 'document' }).then((response) =>{
             this.props.cargaItems(link)    
             this.props.onHide()
         }).catch((error) => console.log(error))

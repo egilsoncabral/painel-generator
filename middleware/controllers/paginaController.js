@@ -5,7 +5,7 @@ module.exports = PaginaController = {
 
   criar: create = (dados, resposta) =>{
     const item = new Pagina({
-        titulo: dados.titulo,
+        nome: dados.nome,
         conteudo: dados.conteudo
      })
      Repository.novoItem(item, resposta)
