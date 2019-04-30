@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PaginaSchema = new Schema({
-  titulo: {
+  nome: {
     type: String,
     required: false
   },
@@ -13,4 +13,4 @@ const PaginaSchema = new Schema({
 
 });
 
-module.exports = Pagina = mongoose.model('paginas', PaginaSchema);
+module.exports = mongoose.model('paginas', PaginaSchema);

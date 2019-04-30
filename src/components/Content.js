@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import '../assets/css/content.css'
 import ModalEdicao from './ModalEdicao';
 import {ButtonToolbar, Dropdown, DropdownButton} from 'react-bootstrap'
-import MenuForm from './forms/MenuForm';
-import PaginaForm from './forms/PaginaForm';
 import ModalRemocao from './ModalRemocao';
 
 class Content extends Component {
@@ -62,12 +60,10 @@ class Content extends Component {
                 return itemMenu.nome !== event.target.id
             })
         }
-        
         this.setState({selectedItens : itensSelecionados})
     }
 
     render(){
-        console.log(this.props.tabela.form)
         let modalClose = () => this.setState({ modalEdicaoShow: false, modalRemocaoShow: false});
         return(
         <div className="main-panel">
@@ -108,7 +104,7 @@ class Content extends Component {
                                                         </DropdownButton>
                                                         </div>
                                                         <ModalEdicao
-                                                        component={this.props.tabela.form}
+                                                        component={this.props.tabela.form ? this.props.tabela.form : ''}
                                                         itens={this.state.selectedItens}
                                                         show={this.state.modalEdicaoShow}
                                                         onHide={modalClose}
@@ -133,16 +129,16 @@ class Content extends Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr style={{textAlign:'center'}}>
-                                                {this.props.tabela.body ? this.montaCabecalho(this.props.tabela.body[0]) : ''}    
+                                                {this.props.tabela.body && this.montaCabecalho(this.props.tabela.body[0])}    
                                                 </tr>
                                             </thead>
                                             
                                             <tbody>
-                                                {this.props.tabela.body ? this.props.tabela.body.map((itensBody, index) =>
+                                                {this.props.tabela.body && this.props.tabela.body.map((itensBody, index) =>
                                                     <tr key={itensBody.nome + index} style={{textAlign:'center'}}>
                                                         {this.montaColuna(itensBody)}
                                                     </tr>
-                                                ):  ''}
+                                                )}
                                             </tbody>
                                         </table>
                                 </div>
