@@ -40,9 +40,9 @@ class ModalRemocao extends  Component{
                         <div>
                         
                         <ul className="nav">
-                            {this.props.itens.map(item => 
+                            {this.props.itens ? this.props.itens.map(item => 
                                 <li key={item.nome} className="list-group-item">{item.nome}</li>
-                            )}
+                            ) : ''}
                         </ul>
                         </div>                        
                     </Modal.Body>
