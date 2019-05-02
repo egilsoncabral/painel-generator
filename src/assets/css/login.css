@@ -1,0 +1,63 @@
+#root, .App {
+  height: 100%;
+  width: 100%;
+}
+
+form {
+  display: grid;
+  grid-template-rows: 150px 110px 110px 100px;
+}
+
+label {
+  font-size: 18px;
+}
+
+.login-form {
+  height: 31rem;
+  width: 100%;
+  padding: 0 15px;
+  max-width: 50%;
+  margin: 25% auto;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 1px 1px rgba(0,0,0,.14)
+}
+
+.form-header {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form-header span:first-child {
+  font-size: 30px;
+}
+
+.form-header span:last-child {
+  font-size: 20px;
+}
+
+.form-group input {
+  height: 60px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.form-buttons {
+  display: flex;
+  margin-top: 50px;
+  align-items: flex-end;
+  border: 1px solid;
+}
+
+.form-buttons button {
+  flex: 1;
+  height:100%;
+  color: #fff;
+  border: none;
+  font-size: 18px;
+  border-radius: 0;
+  background-color: #073d58;
+}
