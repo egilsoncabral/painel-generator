@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-form {
+#login {
   display: grid;
   grid-template-rows: 150px 110px 110px 100px;
 }
@@ -39,20 +39,20 @@ label {
   font-size: 20px;
 }
 
-.form-group input {
+.form-login-group input {
   height: 60px;
   border: 1px solid #ccc;
   background-color: #fff;
 }
 
-.form-buttons {
+.form-login-buttons {
   display: flex;
   margin-top: 50px;
   align-items: flex-end;
   border: 1px solid;
 }
 
-.form-buttons button {
+.form-login-buttons button {
   flex: 1;
   height:100%;
   color: #fff;

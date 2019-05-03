@@ -47,15 +47,21 @@ class Login extends React.Component {
     sessionStorage.setItem('user', tokenValue);
   }
 
+  componentDidMount(){
+    if (sessionStorage.getItem("user") != null) {
+      this.redirectUser("/home");
+    }
+  }
+
   render() {
     return (
       <div className="login-form" onSubmit={this.handleSubmit}>
-        <form>
+        <form id="login">
           <div className="form-header">
             <span>Gerador Painel Estratégico</span>
             <span>Controle de Acesso</span>
           </div>
-          <div className="form-group">
+          <div className="form-login-group">
               <label htmlFor="inputNome">Usuário</label>
               <input type="text" name="usuario"
                      placeholder="Usuário"
@@ -63,14 +69,14 @@ class Login extends React.Component {
                      className="form-control" id="inputUsuario"
                      onChange={this.handleInputChange} required/>
           </div>
-          <div className="form-group">
+          <div className="form-login-group">
               <label htmlFor="inputNome">Senha</label>
               <input type="password" name="senha" value={this.state.senha}
                      placeholder="Senha"
                      className="form-control" id="inputSenha"
                      onChange={this.handleInputChange} required/>
           </div>
-          <div className="form-buttons">
+          <div className="form-login-buttons">
             <Button type="submit" variant="primary" value="Submit">Acessar</Button>
           </div>
         </form>

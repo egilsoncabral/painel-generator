@@ -112,29 +112,25 @@ class IndicadorForm extends Component {
                         onChange={this.props.handleInputChange}
                         required/>
                   </div>
-                  <div className="form-row">
-                    <div className="form-group col-md-6">
-                      <label htmlFor="inputCity">Lista de Masters</label>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="inputCity">Lista de Masters</label>
                       <Select
                         value={this.props.form && this.props.form.master && this.props.form.master.filter(option => option.label)}
                         onChange={this.props.handleInputChange}
                         placeholder="Selecione"
-                        options={this.state.listaMasters}
-                      />
-                    </div>
-                    <div className="form-group col-md-6">
-                      <label htmlFor="inputCity">Campos da Master</label>
+                        options={this.state.listaMasters}/>
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="inputCity">Campos da Master</label>
                       <Select
                         value={this.props.form && this.props.form.camposMaster && this.props.form.camposMaster.filter(option => option.label)}
                         onChange={this.props.handleInputChange}
                         placeholder="Selecione"
                         options={this.state.listaMasters}
                       />
-                    </div>
-
                   </div>
-                </div>
-
+                  
+              </div>
             </div>
         )
     }
