@@ -11,7 +11,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const db = require("../config/connection").mongoURI.machine;
+const db = require("../config/connection").mongoURI.local;
 
 mongoose
   .connect(db, {useNewUrlParser: true, useFindAndModify: false})
