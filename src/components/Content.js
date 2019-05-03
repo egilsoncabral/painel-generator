@@ -15,13 +15,16 @@ class Content extends Component {
         };
 
         this.handleSelect = this.handleSelect.bind(this)
+        this.handleSelectAll = this.handleSelectAll.bind(this)
     }
 
 
     montaCabecalho(cabecalho){
         var colunas = []
         if (cabecalho) {
-            colunas.push(<th scope="col" key="headerCheckbox">#</th>)
+            colunas.push(<th scope="col" key="headerCheckbox">
+            <input type="checkbox" id="inputSelectAll" aria-label="Checkbox for following text input" onClick={this.handleSelectAll}/>
+            </th>)
             var keyCabecalhos = Object.keys(cabecalho);
             for (const nome of keyCabecalhos) {
                 if (nome !== '_id' && nome !== '__v') {
@@ -37,7 +40,7 @@ class Content extends Component {
         var colunas = []
         if (coluna) {
             colunas.push(<th scope="row" key="checkbox">
-                <input type="checkbox" id={coluna.nome} aria-label="Checkbox for following text input" onClick={this.handleSelect}/>
+                <input type="checkbox" id={coluna.nome} aria-label="Checkbox for following text input" onChange={this.handleSelect}/>
             </th>)
             for (const key in coluna) {
                 if (coluna.hasOwnProperty(key) && key !== '_id' && key !== '__v') {
@@ -49,17 +52,48 @@ class Content extends Component {
         return colunas
     }
 
-    handleSelect(event){
+    handleSelectAll(event){
+        var inputs = document.getElementsByTagName('input');
+
+        for(var i = 0; i < inputs.length; i++) {
+            if(inputs[i].type.toLowerCase() === 'checkbox') {
+                if (event.target.checked) {
+                    inputs[i].checked = true; 
+                }else {
+                    inputs[i].checked = false;   
+                }
+            }
+        }
+        this.handleSelect(event, inputs)
+    }
+
+    handleSelect(event, inputs){
         let itensSelecionados = this.state.selectedItens
         if (event.target.checked) {
-            itensSelecionados.push(this.props.tabela.body.find(itemMenu => {
-                return itemMenu.nome === event.target.id
-            }))
+            if (inputs && inputs.length > 0) {
+                itensSelecionados = []
+                for(let input of inputs){
+                    itensSelecionados.push(this.props.tabela.body.find(itemMenu => {
+                        return itemMenu.nome === input.id
+                    }))    
+                } 
+            }else{
+                itensSelecionados.push(this.props.tabela.body.find(itemMenu => {
+                    return itemMenu.nome === event.target.id
+                }))
+            }
         } else{
-            itensSelecionados = itensSelecionados.filter(itemMenu => {
-                return itemMenu.nome !== event.target.id
-            })
+            if(inputs){
+                itensSelecionados = []
+            }else{
+                itensSelecionados = itensSelecionados.filter(itemMenu => {
+                    return itemMenu.nome !== event.target.id
+                })
+            }
         }
+        itensSelecionados = itensSelecionados.filter(function( element ) {
+            return element !== undefined;
+         });
         this.setState({selectedItens : itensSelecionados})
     }
 

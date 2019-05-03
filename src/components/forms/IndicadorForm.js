@@ -20,9 +20,9 @@ class IndicadorForm extends Component {
     componentDidMount(){
       axios.get(`${_contextlocation}/ibi_apps${_urlContent}${_ibiapp}comum&BIP_item=lista_masters.fex&rnd=${Math.random()}`).then((response) =>{
           let selectOption = []
-          if (response.data && response.data.length > 0 ) {
-              for (const menu of response.data) {
-                  selectOption.push({value: menu.nome !== null ? menu.nome.replace(/ /g,"-").toLowerCase(): '', label: menu.nome , name:"master"})                    
+          if (response.data && response.data.records.length > 0 ) {
+              for (const master of response.data.records) {
+                  selectOption.push({value: master.FILENAME !== null && master.FILENAME !== undefined ? master.FILENAME : '', label: master.FILENAME , name:"master"})                    
               }
           }
           this.setState({listaMasters: selectOption})
@@ -113,17 +113,26 @@ class IndicadorForm extends Component {
                         required/>
                   </div>
                   <div className="form-row">
-                        <div className="form-group col-md-6">
-                        <label htmlFor="inputCity">Lista de Masters</label>
-                            <Select
-                                value={this.props.form && this.props.form.master && this.props.form.master.filter(option => option.label)}
-                                onChange={this.props.handleInputChange}
-                                placeholder="Selecione"
-                                options={this.state.listaMasters}
-                            />
-                        </div>
-
+                    <div className="form-group col-md-6">
+                      <label htmlFor="inputCity">Lista de Masters</label>
+                      <Select
+                        value={this.props.form && this.props.form.master && this.props.form.master.filter(option => option.label)}
+                        onChange={this.props.handleInputChange}
+                        placeholder="Selecione"
+                        options={this.state.listaMasters}
+                      />
                     </div>
+                    <div className="form-group col-md-6">
+                      <label htmlFor="inputCity">Campos da Master</label>
+                      <Select
+                        value={this.props.form && this.props.form.camposMaster && this.props.form.camposMaster.filter(option => option.label)}
+                        onChange={this.props.handleInputChange}
+                        placeholder="Selecione"
+                        options={this.state.listaMasters}
+                      />
+                    </div>
+
+                  </div>
                 </div>
 
             </div>
