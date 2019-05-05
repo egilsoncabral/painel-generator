@@ -28,6 +28,15 @@
     color: #ced4da !important;
 }
 
-.modal-title .h4{
+.item_menu {
+  margin: 10px 0px;
+  padding-left: 25px;
+  padding-right: 25px;
+  opacity: .7;
+  cursor: pointer;
+}
 
+.item_menu:hover {
+  color: #333;
+  opacity: none;
 }

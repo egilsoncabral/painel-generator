@@ -13,13 +13,23 @@ class Home extends Component {
       { titulo: "Menus", icon: "ti-panel", link: "items_menu", form: MenuForm },
       { titulo: "Páginas", icon: "ti-files", link: "paginas", form: PaginaForm},
       { titulo: "Indicadores", icon: "ti-view-list-alt", link: "indicadores", form: IndicadorForm},
-      { titulo: "Gráficos", icon: "ti-pie-chart", link: "graficos", form: GraficoForm }
+      { titulo: "Gráficos", icon: "ti-pie-chart", link: "graficos", form: GraficoForm },
+      { titulo: "Logout", icon: "ti-direction", link: "home", form: '' }
     ],
     selectedMenu: { titulo: "Menus", body: [] }
   };
 
   componentDidMount() {
     this.carregarItems("items_menu")
+  }
+
+  handleItemMenuClick = (element, item) => {
+      if (item.titulo !== "Logout") {
+        this.carregarItems(item.link);
+      } else {
+        sessionStorage.removeItem("user","");
+        this.props.history.push(item.link);
+      }
   }
 
   carregarItems = doMenu => {
@@ -44,7 +54,8 @@ class Home extends Component {
   render() {
     return (
       <div id="pnlHome">
-        <SideMenu itensMenu={this.state.itensMenu} cargaItems={this.carregarItems} />
+        {/*<SideMenu itensMenu={this.state.itensMenu} cargaItems={this.carregarItems} />*/}
+        <SideMenu itensMenu={this.state.itensMenu} handleItemMenuClick={this.handleItemMenuClick} />
         <Content tabela={this.state.selectedMenu} cargaItems={this.carregarItems}/>
       </div>
     );
