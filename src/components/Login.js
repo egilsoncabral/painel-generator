@@ -49,32 +49,33 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="login-form" onSubmit={this.handleSubmit}>
-        <form>
-          <div className="form-header">
-            <span>Gerador Painel Estratégico</span>
-            <span>Controle de Acesso</span>
-          </div>
-          <div className="form-group">
-              <label htmlFor="inputNome">Usuário</label>
-              <input type="text" name="usuario"
-                     placeholder="Usuário"
-                     value={this.state.usuario}
-                     className="form-control" id="inputUsuario"
-                     onChange={this.handleInputChange} required/>
-          </div>
-          <div className="form-group">
-              <label htmlFor="inputNome">Senha</label>
-              <input type="password" name="senha" value={this.state.senha}
-                     placeholder="Senha"
-                     className="form-control" id="inputSenha"
-                     onChange={this.handleInputChange} required/>
-          </div>
-          <div className="form-buttons">
-            <Button type="submit" variant="primary" value="Submit">Acessar</Button>
-          </div>
-        </form>
-
+      <div className="form-container">
+        <div className="login-form" onSubmit={this.handleSubmit}>
+          <form>
+            <div className="form-header">
+              <span className="app-name">Gerador Painel Estratégico</span>
+              <span className="app-desc">Controle de Acesso</span>
+            </div>
+            <div className="form-group">
+                <label htmlFor="inputNome">Usuário</label>
+                <input type="text" name="usuario"
+                       placeholder="Usuário"
+                       value={this.state.usuario}
+                       className="form-control" id="inputUsuario"
+                       onChange={this.handleInputChange} required/>
+            </div>
+            <div className="form-group">
+                <label htmlFor="inputNome">Senha</label>
+                <input type="password" name="senha" value={this.state.senha}
+                       placeholder="Senha"
+                       className="form-control" id="inputSenha"
+                       onChange={this.handleInputChange} required/>
+            </div>
+            <div className="form-buttons">
+              <Button type="submit" variant="primary" value="Submit">Acessar</Button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   }

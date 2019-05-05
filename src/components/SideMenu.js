@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../assets/css/menu.css";
 
 class SideMenu extends Component {
+
   render() {
     return (
       <div
@@ -19,16 +20,16 @@ class SideMenu extends Component {
           <ul className="nav">
             {this.props.itensMenu.map(item => (
               <li className="list-group-item" key={item.titulo}>
-                <a 
+                <span className="item_menu"
                   onClick={() => {
-                    this.props.cargaItems(item.link);
+                    this.props.handleItemMenuClick(this, item)
                   }}
                 >
                   <p>
                     <i className={item.icon} />
                     {item.titulo}
                   </p>
-                </a>
+                </span>
               </li>
             ))}
           </ul>
