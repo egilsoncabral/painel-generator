@@ -25,6 +25,14 @@ const IndicadorSchema = new Schema({
   labelQtd: {
    type: String,
    required: false
+  },
+  master:{
+   type: String,
+   required: true
+  },
+  camposMaster:{
+   type: Array,
+   required: true
   }
 });
 

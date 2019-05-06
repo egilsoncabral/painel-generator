@@ -16,7 +16,8 @@ class Home extends Component {
       { titulo: "Gráficos", icon: "ti-pie-chart", link: "graficos", form: GraficoForm },
       { titulo: "Logout", icon: "ti-direction", link: "home", form: '' }
     ],
-    selectedMenu: { titulo: "Menus", body: [] }
+    selectedMenu: { titulo: "Menus", body: [] },
+    selectedItens: []
   };
 
   componentDidMount() {
@@ -24,6 +25,7 @@ class Home extends Component {
   }
 
   handleItemMenuClick = (element, item) => {
+      this.setState({selectedItens: []})
       if (item.titulo !== "Logout") {
         this.carregarItems(item.link);
       } else {
@@ -33,6 +35,7 @@ class Home extends Component {
   }
 
   carregarItems = doMenu => {
+    this.setState({selectedItens: []})
     axios
       .get(`http://localhost:3000/api/${doMenu}`)
       .then(response => {
@@ -56,7 +59,7 @@ class Home extends Component {
       <div id="pnlHome">
         {/*<SideMenu itensMenu={this.state.itensMenu} cargaItems={this.carregarItems} />*/}
         <SideMenu itensMenu={this.state.itensMenu} handleItemMenuClick={this.handleItemMenuClick} />
-        <Content tabela={this.state.selectedMenu} cargaItems={this.carregarItems}/>
+        <Content tabela={this.state.selectedMenu} cargaItems={this.carregarItems} selectedItens={this.state.selectedItens}/>
       </div>
     );
   }

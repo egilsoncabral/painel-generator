@@ -13,11 +13,12 @@ var _ibiapp = "painelestrategicoinss/";
 
 class IndicadorForm extends Component {
   state = {
-    listaMasters: []
+    listaMasters: [],
+    listaCamposMaster:[]
   };
 
 
-    componentDidMount(){
+  componentDidMount(){
       axios.get(`${_contextlocation}/ibi_apps${_urlContent}${_ibiapp}comum&BIP_item=lista_masters.fex&rnd=${Math.random()}`).then((response) =>{
           let selectOption = []
           if (response.data && response.data.records.length > 0 ) {
@@ -29,12 +30,27 @@ class IndicadorForm extends Component {
       }).catch((error) => console.log(error))
   }
 
+  handleMasterSelected(event){
+    this.setState({listaCamposMaster:[]})
+    this.props.handleInputChange([{name:'camposMaster', value:''}])
+    axios.get(`${_contextlocation}/ibi_apps${_urlContent}${_ibiapp}comum&BIP_item=lista_nome_colunas.fex&TABELA=${event.label}&rnd=${Math.random()}`).then((response) =>{
+      let selectOption = []
+      if (response.data && response.data.records.length > 0 ) {
+          for (const master of response.data.records) {
+              selectOption.push({value: master.NAME !== null && master.NAME !== undefined ? master.NAME : '', label: master.NAME , name:"camposMaster"})                    
+          }
+      }
+      this.setState({listaCamposMaster: selectOption})
+    }).catch((error) => console.log(error))
+  }
+
 
     render(){
         const props = {
             icons: icones,
             theme: 'bluegrey',
             onChange: this.props.handleChange,
+            disabled: this.props.isDisable,
             isMulti: false,
             renderUsing:'class',
             closeOnSelect: true,
@@ -51,7 +67,11 @@ class IndicadorForm extends Component {
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label htmlFor="inputNome">Nome</label>
-                    <input type="text" name="nome" value={this.props.form && this.props.form.nome ? this.props.form.nome : ''} className="form-control" id="inputNome" placeholder="Nome" onChange={this.props.handleInputChange} required/>
+                    <input type="text" name="nome" value={this.props.form && this.props.form.nome ? this.props.form.nome : ''} 
+                    className="form-control" id="inputNome" placeholder="Nome" 
+                    onChange={this.props.handleInputChange} 
+                    disabled={this.props.isDisable}
+                    required/>
                   </div>
                   <div className="form-group col-md-6">
                     <label htmlFor="inputIcone">Icone</label>
@@ -64,6 +84,7 @@ class IndicadorForm extends Component {
                             <Select
                                 defaultInputValue={this.props.form && this.props.form.cor}
                                 onChange={this.props.handleInputChange}
+                                isDisabled={this.props.isDisable}
                                 placeholder="Selecione"
                                 options={listaCores}
                             />
@@ -80,6 +101,7 @@ class IndicadorForm extends Component {
                       id="inputIdCard"
                       placeholder="identificador"
                       onChange={this.props.handleInputChange}
+                      disabled={this.props.isDisable}
                       required/>
                   </div>
                 </div>
@@ -96,6 +118,7 @@ class IndicadorForm extends Component {
                         id="inputQtdLabel"
                         placeholder="Rótulo Quantidade"
                         onChange={this.props.handleInputChange}
+                        disabled={this.props.isDisable}
                         required/>
                   </div>
                   <div className="form-group col-md-6">
@@ -110,23 +133,27 @@ class IndicadorForm extends Component {
                         id="inputVlLabel"
                         placeholder="Rótulo Valor"
                         onChange={this.props.handleInputChange}
+                        disabled={this.props.isDisable}
                         required/>
                   </div>
                   <div className="form-group col-md-6">
                     <label htmlFor="inputCity">Lista de Masters</label>
                       <Select
-                        value={this.props.form && this.props.form.master && this.props.form.master.filter(option => option.label)}
-                        onChange={this.props.handleInputChange}
+                        defaultInputValue={this.props.form && this.props.form.master}
+                        onChange={(event) => {this.props.handleInputChange(event); this.handleMasterSelected(event)}}
+                        isDisabled={this.props.isDisable}
                         placeholder="Selecione"
                         options={this.state.listaMasters}/>
                   </div>
                   <div className="form-group col-md-6">
                     <label htmlFor="inputCity">Campos da Master</label>
                       <Select
+                        isMulti
+                        isDisabled={this.state.listaCamposMaster.length === 0 && this.props.isDisable}
                         value={this.props.form && this.props.form.camposMaster && this.props.form.camposMaster.filter(option => option.label)}
                         onChange={this.props.handleInputChange}
                         placeholder="Selecione"
-                        options={this.state.listaMasters}
+                        options={this.state.listaCamposMaster}
                       />
                   </div>
                   

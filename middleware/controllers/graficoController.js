@@ -4,7 +4,6 @@ const Repository = require('../services/repository');
 module.exports = {
 
   criar: (dados, resposta) =>{
-    console.log(dados)
     const item = new Grafico({
         nome: dados.nome,
         idGrafico: dados.idGrafico,
@@ -12,7 +11,6 @@ module.exports = {
         master: dados.master,
         camposMaster: dados.camposMaster,
      })
-     console.log(item)
      Repository.novoItem(item, resposta)
   },
 

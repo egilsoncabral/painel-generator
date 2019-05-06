@@ -4,16 +4,16 @@ const Repository = require('../services/repository');
 module.exports = {
 
   criar: (dados, resposta) =>{
-    console.log(dados)
     const item = new Indicador({
         nome: dados.nome,
         idCard: dados.idCard,
         cor: dados.cor,
         icone: dados.icone,
         labelValor: dados.labelValor,
-        labelQtd: dados.labelQtd
+        labelQtd: dados.labelQtd,
+        master: dados.master,
+        camposMaster: dados.camposMaster
      })
-     console.log(item)
      Repository.novoItem(item, resposta)
   },
 

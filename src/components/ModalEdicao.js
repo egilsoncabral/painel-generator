@@ -61,7 +61,6 @@ class ModalEdicao extends  Component{
             this.props.cargaItems(link)    
             this.props.onHide()
         }).catch((error) => console.log(error))
-        // console.log(this.state.form)
     }
 
     render(){
@@ -82,14 +81,14 @@ class ModalEdicao extends  Component{
                 <form onSubmit={this.handleSubmit}>
                     <Modal.Body>
                         <React.Fragment>
-                            <this.props.component handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} 
+                            <this.props.component handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} isDisable={this.props.isDisable}
                             form={this.state.form}/>
                         </React.Fragment>
                         
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.props.onHide}>Fechar</Button>
-                        <Button type="submit" variant="primary" value="Submit">Salvar</Button>
+                        {!this.props.isDisable && <Button type="submit" variant="primary" value="Submit">Salvar</Button>}
                     </Modal.Footer>
                 </form>
             </Modal>

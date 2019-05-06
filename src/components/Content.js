@@ -11,12 +11,21 @@ class Content extends Component {
         this.state = {
             modalEdicaoShow: false, 
             modalRemocaoShow: false,
+            isDisable: false,
             selectedItens: []
         };
 
         this.handleSelect = this.handleSelect.bind(this)
         this.handleSelectAll = this.handleSelectAll.bind(this)
     }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.selectedItens !== this.props.selectedItens) {
+          this.setState({ selectedItens: nextProps.selectedItens })
+        }else{
+            this.setState({ selectedItens: []})
+        }
+      }
 
 
     montaCabecalho(cabecalho){
@@ -27,7 +36,7 @@ class Content extends Component {
             </th>)
             var keyCabecalhos = Object.keys(cabecalho);
             for (const nome of keyCabecalhos) {
-                if (nome !== '_id' && nome !== '__v') {
+                if (nome !== '_id' && nome !== '__v' && !nome.includes('label')) {
                     colunas.push(<th scope="col" key={nome}>{nome.charAt(0).toUpperCase() + nome.slice(1)}</th>)    
                 }
                 
@@ -43,7 +52,7 @@ class Content extends Component {
                 <input type="checkbox" id={coluna.nome} aria-label="Checkbox for following text input" onChange={this.handleSelect}/>
             </th>)
             for (const key in coluna) {
-                if (coluna.hasOwnProperty(key) && key !== '_id' && key !== '__v') {
+                if (coluna.hasOwnProperty(key) && key !== '_id' && key !== '__v' && !key.includes('label')) {
                     const element = coluna[key];
                         colunas.push(<td key={key}>{Array.isArray(element) ? element.map((el, index) => index === 0 ? el.label : ', ' + el.label  ) : element}</td>)
                 }
@@ -129,9 +138,11 @@ class Content extends Component {
                                                             key='down' drop="left"
                                                             title=""
                                                         >
-                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true })} disabled={this.state.selectedItens.length > 0 ? true : false}>+ Adicionar</Dropdown.Item>
-                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true })}
+                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true, isDisable: false })} disabled={this.state.selectedItens.length > 0 ? true : false}>+ Adicionar</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true, isDisable: false })}
                                                             disabled={this.state.selectedItens.length === 1 ? false : true}>Editar</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true, isDisable: true })}
+                                                            disabled={this.state.selectedItens.length === 1 ? false : true}>Detalhe</Dropdown.Item>
                                                             <Dropdown.Divider />
                                                             <Dropdown.Item onClick={() => this.setState({ modalRemocaoShow: true })} 
                                                                 disabled={this.state.selectedItens.length > 0 ? false : true}><i className="ti-trash"></i>Remover</Dropdown.Item>
@@ -139,6 +150,7 @@ class Content extends Component {
                                                         </div>
                                                         <ModalEdicao
                                                         component={this.props.tabela.form ? this.props.tabela.form : ''}
+                                                        isDisable={this.state.isDisable}
                                                         itens={this.state.selectedItens}
                                                         show={this.state.modalEdicaoShow}
                                                         onHide={modalClose}
