@@ -5,7 +5,7 @@
 
 .login-form form {
   display: grid;
-  grid-template-rows: 150px 110px 110px 100px;
+  grid-template-rows: 140px 100px 90px 95px;
 }
 
 label {
@@ -20,7 +20,7 @@ label {
 }
 
 .login-form {
-  height: 31rem;
+  height: 27.5rem;
   width: 35%;
   max-width: 50%;
   min-width: 30%;
@@ -48,9 +48,10 @@ label {
 }
 
 .login-form .form-group input {
-  height: 60px;
+  height: 50px;
   border: 1px solid #ccc;
   background-color: #fff;
+  border-radius: 0px;
 }
 
 .form-buttons {
@@ -69,6 +70,7 @@ label {
   border-radius: 0;
   background-color: #073d58;
 }
+
 
 @media (max-width: 798px) {
   .login-form {
