@@ -8,23 +8,45 @@ import axios from "axios";
 class PaginaForm extends Component {
   state = {
     menuOptions: [],
-    selectedRadio: 0
+    indicadoresOptions: [],
+    selectedRadio: -1
   };
 
 
   componentDidMount(){
-    axios.get('http://localhost:3000/api/items_menu').then((response) =>{
-        let selectOption = []
-        if (response.data && response.data.length > 0 ) {
-            for (const menu of response.data) {
-                selectOption.push({value: menu.nome !== null ? menu.nome.replace(/ /g,"-").toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+    let indicadoresOption = []
+    let selectOption = []
+    axios.all([
+        axios.get('http://localhost:3000/api/items_menu'),
+        axios.get('http://localhost:3000/api/indicadores'),
+        axios.get('http://localhost:3000/api/graficos')
+      ])
+      .then(axios.spread((itemMenuRes, indicadoresRes, graficosRes) => {
+        // do something with both responses
+        if (itemMenuRes.data && itemMenuRes.data.length > 0 ) {
+            for (const menu of itemMenuRes.data) {
+                selectOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+            }
+            this.setState({menuOptions: selectOption})
+        }
+        
+        if (indicadoresRes.data && indicadoresRes.data.length > 0 ) {
+            for (const menu of indicadoresRes.data) {
+                indicadoresOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
             }
         }
-        this.setState({menuOptions: selectOption})
-    }).catch((error) => console.log(error))
+        if (graficosRes.data && graficosRes.data.length > 0 ) {
+            for (const menu of graficosRes.data) {
+                indicadoresOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+            }
+        }
+        this.setState({indicadoresOptions: indicadoresOption})
+      })).catch((error) => console.log(error))
+   
 }
-    handleRadioButton(){
-        this.setState({selectedRadio: this.state.selectedRadio === 0 ? 1 : 0})
+    handleRadioButton(event){
+        this.props.handleInputChange(event)
+        this.setState({selectedRadio: event.target.value === 'menu' ? 0 : 1})
     }
 
     render(){
@@ -41,29 +63,31 @@ class PaginaForm extends Component {
                     </div>
                     <div className="form-row">
                     <fieldset>
+                     <label htmlFor="tipoPagina">Tipo de Página</label>
                         <Form.Group as={Row}>
-                            <Form.Label as="legend" column sm={12}>
-                                Radios
-                            </Form.Label>
-                            <Col sm={12}>
+                             
+                            <Col sm={12} id="tipoPagina">
                                 <Form.Check
                                 custom
                                 type="radio"
                                 inline
                                 label="Menus"
-                                name="formHorizontalRadios"
+                                name="tipo"
                                 id="formHorizontalRadios1"
-                                onChange={() =>this.handleRadioButton()}
-                                defaultChecked
+                                onChange={(event) =>this.handleRadioButton(event)}
+                                value="Menu"
+                                checked={this.props.form && this.props.form.tipo === 'menu' ? true : false}
                                 />
                                 <Form.Check
                                 custom
                                 type="radio"
                                 inline
                                 label="Indicadores/Gráficos"
-                                name="formHorizontalRadios"
+                                name="tipo"
                                 id="formHorizontalRadios2"
-                                onChange={() =>this.handleRadioButton()}
+                                onChange={(event) =>this.handleRadioButton(event)}
+                                value="Indicadores/Graficos"
+                                checked={this.props.form && this.props.form.tipo === 'indicadores/graficos' ? true : false}
                                 />
                                 
                             </Col>
@@ -88,7 +112,7 @@ class PaginaForm extends Component {
                                     value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.filter(option => option.label)}
                                     onChange={this.props.handleInputChange}
                                     placeholder="Selecione"
-                                    options={this.state.menuOptions}
+                                    options={this.state.indicadoresOptions}
                                 />
                         </div>
 
