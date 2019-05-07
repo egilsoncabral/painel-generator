@@ -54,11 +54,20 @@ class Home extends Component {
       .catch(error => console.log(error));
   };
 
+  removerItemMenu = comId => {    
+    let items = this.state.selectedMenu;
+    items.body = this.state.selectedMenu.body.filter(item => item._id !== comId);
+    this.setState({selectedMenu: items})
+  }
+
   render() {
     return (
       <div id="pnlHome">
         <SideMenu itensMenu={this.state.itensMenu} handleItemMenuClick={this.handleItemMenuClick} />
-        <Content tabela={this.state.selectedMenu} cargaItems={this.carregarItems} selectedItens={this.state.selectedItens}/>
+        <Content tabela={this.state.selectedMenu}
+            cargaItems={this.carregarItems}
+            selectedItens={this.state.selectedItens}
+            removerItemMenu={this.removerItemMenu}/>
       </div>
     );
   }

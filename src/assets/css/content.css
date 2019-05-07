@@ -17,15 +17,6 @@ a {
     color: #2e2e2e
 }
 
-.dropleft .dropdown-toggle::before{
-    content: '\2807' !important;
-    font-size: 2em;
-    color: #2e2e2e;
-    border: none !important;
-    margin:0px !important;
-    align-items: center;
-}
-
 .btn-primary{
     border:none !important;
 }
@@ -77,4 +68,8 @@ a {
     border: none !important;
     margin: -5px  !important;
     align-items: center;
+}
+
+.ti-trash {
+  cursor: pointer;
 }

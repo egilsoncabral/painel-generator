@@ -9,7 +9,7 @@ class Content extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalEdicaoShow: false, 
+            modalEdicaoShow: false,
             modalRemocaoShow: false,
             isDisable: false,
             selectedItens: []
@@ -31,16 +31,16 @@ class Content extends Component {
     montaCabecalho(cabecalho){
         var colunas = []
         if (cabecalho) {
-            colunas.push(<th scope="col" key="headerCheckbox">
+            colunas.push(<th scope="col" key="headerCheckbox" style={{paddingLeft:"9px"}}>
             <input type="checkbox" id="inputSelectAll" aria-label="Checkbox for following text input" onClick={this.handleSelectAll}/>
             </th>)
             var keyCabecalhos = Object.keys(cabecalho);
             for (const nome of keyCabecalhos) {
                 if (nome !== '_id' && nome !== '__v' && !nome.includes('label')) {
-                    colunas.push(<th scope="col" key={nome}>{nome.charAt(0).toUpperCase() + nome.slice(1)}</th>)    
+                    colunas.push(<th scope="col" key={nome}>{nome.charAt(0).toUpperCase() + nome.slice(1)}</th>)
                 }
-                
             }
+            colunas.push(<th scope="col" key={"del"}>{"Remover"}</th>)
         }
         return colunas
     }
@@ -57,6 +57,12 @@ class Content extends Component {
                         colunas.push(<td key={key}>{Array.isArray(element) ? element.map((el, index) => index === 0 ? el.label : ', ' + el.label  ) : element}</td>)
                 }
             }
+
+            colunas.push(
+                <td id={coluna._id} key={"bt-delete"}>
+                    <i className="ti-trash"
+                      onClick={() => this.props.removerItemMenu(coluna._id)}/>
+                </td>)
         }
         return colunas
     }
@@ -67,9 +73,9 @@ class Content extends Component {
         for(var i = 0; i < inputs.length; i++) {
             if(inputs[i].type.toLowerCase() === 'checkbox') {
                 if (event.target.checked) {
-                    inputs[i].checked = true; 
+                    inputs[i].checked = true;
                 }else {
-                    inputs[i].checked = false;   
+                    inputs[i].checked = false;
                 }
             }
         }
@@ -84,8 +90,8 @@ class Content extends Component {
                 for(let input of inputs){
                     itensSelecionados.push(this.props.tabela.body.find(itemMenu => {
                         return itemMenu.nome === input.id
-                    }))    
-                } 
+                    }))
+                }
             }else{
                 itensSelecionados.push(this.props.tabela.body.find(itemMenu => {
                     return itemMenu.nome === event.target.id
@@ -144,7 +150,7 @@ class Content extends Component {
                                                             <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true, isDisable: true })}
                                                             disabled={this.state.selectedItens.length === 1 ? false : true}>Detalhe</Dropdown.Item>
                                                             <Dropdown.Divider />
-                                                            <Dropdown.Item onClick={() => this.setState({ modalRemocaoShow: true })} 
+                                                            <Dropdown.Item onClick={() => this.setState({ modalRemocaoShow: true })}
                                                                 disabled={this.state.selectedItens.length > 0 ? false : true}><i className="ti-trash"></i>Remover</Dropdown.Item>
                                                         </DropdownButton>
                                                         </div>
@@ -169,16 +175,16 @@ class Content extends Component {
                                                 </ul>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div className="content table-responsive">
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr style={{textAlign:'center'}}>
-                                                {this.props.tabela.body && this.montaCabecalho(this.props.tabela.body[0])}    
+                                                {this.props.tabela.body && this.montaCabecalho(this.props.tabela.body[0])}
                                                 </tr>
                                             </thead>
-                                            
+
                                             <tbody>
                                                 {this.props.tabela.body && this.props.tabela.body.map((itensBody, index) =>
                                                     <tr key={itensBody.nome + index} style={{textAlign:'center'}}>
@@ -193,9 +199,9 @@ class Content extends Component {
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        
+
         )
     }
 }
