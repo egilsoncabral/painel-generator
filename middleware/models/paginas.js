@@ -9,6 +9,10 @@ const PaginaSchema = new Schema({
   conteudo: {
     type: Array,
     required: false
+  }, 
+  tipo:{
+    type: String,
+    required: true
   }
 
 });

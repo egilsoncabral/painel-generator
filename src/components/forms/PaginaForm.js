@@ -9,7 +9,7 @@ class PaginaForm extends Component {
   state = {
     menuOptions: [],
     indicadoresOptions: [],
-    selectedRadio: 0
+    selectedRadio: -1
   };
 
 
@@ -44,8 +44,9 @@ class PaginaForm extends Component {
       })).catch((error) => console.log(error))
    
 }
-    handleRadioButton(){
-        this.setState({selectedRadio: this.state.selectedRadio === 0 ? 1 : 0})
+    handleRadioButton(event){
+        this.props.handleInputChange(event)
+        this.setState({selectedRadio: event.target.value === 'menu' ? 0 : 1})
     }
 
     render(){
@@ -62,29 +63,31 @@ class PaginaForm extends Component {
                     </div>
                     <div className="form-row">
                     <fieldset>
+                     <label htmlFor="tipoPagina">Tipo de Página</label>
                         <Form.Group as={Row}>
-                            <Form.Label as="legend" column sm={12}>
-                                Radios
-                            </Form.Label>
-                            <Col sm={12}>
+                             
+                            <Col sm={12} id="tipoPagina">
                                 <Form.Check
                                 custom
                                 type="radio"
                                 inline
                                 label="Menus"
-                                name="formHorizontalRadios"
+                                name="tipo"
                                 id="formHorizontalRadios1"
-                                onChange={() =>this.handleRadioButton()}
-                                defaultChecked
+                                onChange={(event) =>this.handleRadioButton(event)}
+                                value="Menu"
+                                checked={this.props.form && this.props.form.tipo === 'menu' ? true : false}
                                 />
                                 <Form.Check
                                 custom
                                 type="radio"
                                 inline
                                 label="Indicadores/Gráficos"
-                                name="formHorizontalRadios"
+                                name="tipo"
                                 id="formHorizontalRadios2"
-                                onChange={() =>this.handleRadioButton()}
+                                onChange={(event) =>this.handleRadioButton(event)}
+                                value="Indicadores/Graficos"
+                                checked={this.props.form && this.props.form.tipo === 'indicadores/graficos' ? true : false}
                                 />
                                 
                             </Col>
