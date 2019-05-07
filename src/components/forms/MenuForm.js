@@ -18,7 +18,7 @@ class MenuForm extends Component {
             let selectOption = []
             if (response.data && response.data.length > 0 ) {
                 for (const menu of response.data) {
-                    selectOption.push({value: menu.nome !== null ? menu.nome.replace(/ /g,"-").toLowerCase(): '', label: menu.nome , name:"subMenu"})                    
+                    selectOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"subMenu"})                    
                 }
             }
             this.setState({menuOptions: selectOption})

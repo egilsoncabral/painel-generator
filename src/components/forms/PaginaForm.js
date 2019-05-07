@@ -8,20 +8,41 @@ import axios from "axios";
 class PaginaForm extends Component {
   state = {
     menuOptions: [],
+    indicadoresOptions: [],
     selectedRadio: 0
   };
 
 
   componentDidMount(){
-    axios.get('http://localhost:3000/api/items_menu').then((response) =>{
-        let selectOption = []
-        if (response.data && response.data.length > 0 ) {
-            for (const menu of response.data) {
-                selectOption.push({value: menu.nome !== null ? menu.nome.replace(/ /g,"-").toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+    let indicadoresOption = []
+    let selectOption = []
+    axios.all([
+        axios.get('http://localhost:3000/api/items_menu'),
+        axios.get('http://localhost:3000/api/indicadores'),
+        axios.get('http://localhost:3000/api/graficos')
+      ])
+      .then(axios.spread((itemMenuRes, indicadoresRes, graficosRes) => {
+        // do something with both responses
+        if (itemMenuRes.data && itemMenuRes.data.length > 0 ) {
+            for (const menu of itemMenuRes.data) {
+                selectOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+            }
+            this.setState({menuOptions: selectOption})
+        }
+        
+        if (indicadoresRes.data && indicadoresRes.data.length > 0 ) {
+            for (const menu of indicadoresRes.data) {
+                indicadoresOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
             }
         }
-        this.setState({menuOptions: selectOption})
-    }).catch((error) => console.log(error))
+        if (graficosRes.data && graficosRes.data.length > 0 ) {
+            for (const menu of graficosRes.data) {
+                indicadoresOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+            }
+        }
+        this.setState({indicadoresOptions: indicadoresOption})
+      })).catch((error) => console.log(error))
+   
 }
     handleRadioButton(){
         this.setState({selectedRadio: this.state.selectedRadio === 0 ? 1 : 0})
@@ -88,7 +109,7 @@ class PaginaForm extends Component {
                                     value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.filter(option => option.label)}
                                     onChange={this.props.handleInputChange}
                                     placeholder="Selecione"
-                                    options={this.state.menuOptions}
+                                    options={this.state.indicadoresOptions}
                                 />
                         </div>
 
