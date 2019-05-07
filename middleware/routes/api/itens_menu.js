@@ -7,7 +7,7 @@ const ItemMenuController = require('../../controllers/itemMenuController')
 // @desc  GET All Items
 // @access Public
 router.get('/', (req, res) => {
-  ItemMenuController.listar(res);
+  ItemMenuController.listar(req.body, res);
 });
 
 router.post('/', (req, res) => {

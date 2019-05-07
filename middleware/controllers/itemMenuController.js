@@ -14,13 +14,16 @@ module.exports = {
      Repository.novoItem(item, resposta)
   },
 
-  listar: resposta =>
-    Repository.obterLista(ItemMenu, resposta),
+  listar: (body, resposta) =>
+    Repository.obterLista(body.nome ?  new ItemMenu({nome: body.nome}): ItemMenu, resposta),
 
   atualizar: (atualizado, resposta) =>
     Repository.atualizarItem(ItemMenu, atualizado, resposta),
 
   remover: (items, resultado) =>
-    Repository.remover(ItemMenu, items, resultado)
+    Repository.remover(ItemMenu, items, resultado),
+  
+  obterPorNome: (query, resposta) =>
+    Repository.obterItemPorNome(ItemMenu, query, resposta)
 
 }
