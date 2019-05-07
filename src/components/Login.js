@@ -40,8 +40,12 @@ class Login extends React.Component {
   }
 
   handleSubmit = event => {
+
     event.preventDefault();
     this.iniciarAutenticacao(true);
+
+    document.body.style.cursor='wait';
+
     FexAPI.login(this.state.usuario, this.state.senha, (retornoLogin) => {
       let result = retornoLogin.querySelector('result');
       if (result.getAttribute('value') > 0) {
@@ -52,7 +56,10 @@ class Login extends React.Component {
       } else{
         this.showErroAuth(true, 'Usuário ou Senha inválidos')
       }
+      document.body.style.cursor='default';
     })
+
+
   }
 
   redirectUser = (path) => {

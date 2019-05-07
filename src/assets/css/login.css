@@ -21,7 +21,7 @@ label {
 
 .login-form {
   height: 27.5rem;
-  width: 35%;
+  width: 30%;
   max-width: 50%;
   min-width: 30%;
   padding: 0 15px;
@@ -71,6 +71,10 @@ label {
   background-color: #073d58;
 }
 
+.btn-primary:hover {
+  color: #fff !important;
+  background-color: #1A5276 !important;
+}
 
 @media (max-width: 798px) {
   .login-form {
