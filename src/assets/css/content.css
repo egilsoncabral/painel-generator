@@ -34,3 +34,47 @@ a {
     opacity: inherit !important;
     visibility: visible !important;
 }
+
+/*
+  Removendo alguns estilos do DropdownButton (Botão com as opções de crud)
+*/
+#dropdown-button-drop-down {
+  width:15px;
+  border: none !important;
+  outline: none !important;
+}
+
+#dropdown-button-drop-down:hover {
+    border: none !important;
+    background-color: #fff !important;
+}
+
+#dropdown-button-drop-down.btn-primary:hover {
+    background-color: #fff !important;
+}
+
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: none !important;
+    background-color: #fff;
+}
+
+#dropdown-button-drop-down.btn {
+  padding: 0 !important;
+}
+#dropdown-button-drop-down.btn-primary {
+  color: #fff !important;
+  background-color: #fff !important;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+  box-shadow: none !important;
+}
+
+.dropleft .dropdown-toggle::before {
+    content: '\2807' !important;
+    font-size: 2em;
+    color: #2e2e2e;
+    border: none !important;
+    margin: -5px  !important;
+    align-items: center;
+}

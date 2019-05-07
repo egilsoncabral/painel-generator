@@ -57,7 +57,6 @@ class Home extends Component {
   render() {
     return (
       <div id="pnlHome">
-        {/*<SideMenu itensMenu={this.state.itensMenu} cargaItems={this.carregarItems} />*/}
         <SideMenu itensMenu={this.state.itensMenu} handleItemMenuClick={this.handleItemMenuClick} />
         <Content tabela={this.state.selectedMenu} cargaItems={this.carregarItems} selectedItens={this.state.selectedItens}/>
       </div>
