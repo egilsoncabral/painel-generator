@@ -46,7 +46,7 @@ class PaginaForm extends Component {
 }
     handleRadioButton(event){
         this.props.handleInputChange(event)
-        this.setState({selectedRadio: event.target.value === 'menu' ? 0 : 1})
+        this.setState({selectedRadio: event.target.value.toLowerCase() === 'menu' ? 0 : 1})
     }
 
     render(){
@@ -76,7 +76,7 @@ class PaginaForm extends Component {
                                 id="formHorizontalRadios1"
                                 onChange={(event) =>this.handleRadioButton(event)}
                                 value="Menu"
-                                checked={this.props.form && this.props.form.tipo === 'menu' ? true : false}
+                                defaultChecked={this.props.form && this.props.form.tipo === 'menu' ? true : false}
                                 />
                                 <Form.Check
                                 custom
@@ -87,7 +87,7 @@ class PaginaForm extends Component {
                                 id="formHorizontalRadios2"
                                 onChange={(event) =>this.handleRadioButton(event)}
                                 value="Indicadores/Graficos"
-                                checked={this.props.form && this.props.form.tipo === 'indicadores/graficos' ? true : false}
+                                defaultChecked={this.props.form && this.props.form.tipo === 'indicadores/graficos' ? true : false}
                                 />
                                 
                             </Col>

@@ -4,10 +4,10 @@ const MSG_SUCESSO = "Operação bem sucedida ";
 module.exports = {
 
   obterLista: (deItensDoTipo, resposta) =>
-      deItensDoTipo.find()
+      deItensDoTipo.find(deItensDoTipo.nome && {nome: deItensDoTipo.nome})
                    .sort({ id: -1})
                    .then(items => resposta.json(items))
-                   .catch(err => resposta.json({msg: MSG_ERRO + "de inclusão: " + err})),
+                   .catch(err => resposta.json({msg: MSG_ERRO + err})),
 
   novoItem: (doTipo, resposta) => {
     doTipo.save().then(item => resposta.json(item));
@@ -28,5 +28,7 @@ module.exports = {
       .then(() => resultado.json({msg: MSG_SUCESSO + "Item removido!!!"}))
       .catch(err => resultado.status(500).json({msg: MSG_ERRO + "de remoção " + err}))
   }
+
+  
 
 }
