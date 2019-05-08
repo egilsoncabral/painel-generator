@@ -7,6 +7,7 @@ import 'react-bootstrap'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/paper-dashboard.css'
 import './assets/css/themify-icons.css'
+import './assets/css/material-icons.css'
 import './assets/css/demo.css'
 
 ReactDOM.render(<App />, document.getElementById('root'));
