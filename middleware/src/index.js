@@ -23,6 +23,6 @@ app.use('/api/paginas', paginas);
 app.use('/api/indicadores', indicadores);
 app.use('/api/graficos', graficos);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, () => console.log(`Server runinng on port ${PORT}`));
