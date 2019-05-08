@@ -27,7 +27,6 @@ class Content extends Component {
         }
       }
 
-
     montaCabecalho(cabecalho){
         var colunas = []
         if (cabecalho) {
@@ -61,7 +60,7 @@ class Content extends Component {
             colunas.push(
                 <td id={coluna._id} key={"bt-delete"}>
                     <i className="ti-trash"
-                      onClick={() => this.props.removerItemMenu(coluna._id)}/>
+                      onClick={() => this.handleDeleteItem(coluna._id)}/>
                 </td>)
         }
         return colunas
@@ -112,6 +111,14 @@ class Content extends Component {
         this.setState({selectedItens : itensSelecionados})
     }
 
+    handleDeleteItem(id) {
+
+        this.setState({ modalRemocaoShow: true });
+        this.setState({
+            selectedItens: this.props.tabela.body.filter(item => item._id === id)
+        })
+    }
+
     render(){
         let modalClose = () => this.setState({ modalEdicaoShow: false, modalRemocaoShow: false});
         return(
@@ -134,8 +141,8 @@ class Content extends Component {
                                             <h4 className="title">Itens</h4>
                                         </div>
                                         <div className="col">
-                                                <ul className="nav navbar-nav navbar-right float-right">
-                                                    <li>
+                                            <ul className="nav navbar-nav navbar-right float-right">
+                                                <li>
                                                     <ButtonToolbar>
                                                         <div className="col">
                                                         <DropdownButton
@@ -144,14 +151,17 @@ class Content extends Component {
                                                             key='down' drop="left"
                                                             title=""
                                                         >
-                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true, isDisable: false })} disabled={this.state.selectedItens.length > 0 ? true : false}>+ Adicionar</Dropdown.Item>
                                                             <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true, isDisable: false })}
-                                                            disabled={this.state.selectedItens.length === 1 ? false : true}>Editar</Dropdown.Item>
+                                                                disabled={this.state.selectedItens.length > 0 ? true : false}>+ Adicionar</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true, isDisable: false })}
+                                                                disabled={this.state.selectedItens.length === 1 ? false : true}>Editar</Dropdown.Item>
                                                             <Dropdown.Item onClick={() => this.setState({ modalEdicaoShow: true, isDisable: true })}
-                                                            disabled={this.state.selectedItens.length === 1 ? false : true}>Detalhe</Dropdown.Item>
+                                                                disabled={this.state.selectedItens.length === 1 ? false : true}>Detalhe</Dropdown.Item>
                                                             <Dropdown.Divider />
                                                             <Dropdown.Item onClick={() => this.setState({ modalRemocaoShow: true })}
-                                                                disabled={this.state.selectedItens.length > 0 ? false : true}><i className="ti-trash"></i>Remover</Dropdown.Item>
+                                                                disabled={this.state.selectedItens.length > 0 ? false : true}>
+                                                                <i className="ti-trash"></i>Remover
+                                                            </Dropdown.Item>
                                                         </DropdownButton>
                                                         </div>
                                                         <ModalEdicao

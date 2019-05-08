@@ -21,7 +21,7 @@ export const getFex = (caminho, arquivo, parametros, funcaoPreenche) => {
 }
 
 
-export const login = (username, password, callback) => {
+export const login = (username, password, callback, erro) => {
   const bodyFormData = new URLSearchParams();
   bodyFormData.append('IBIB_force_signon', false)
   bodyFormData.append('webfocus-security-direct-response', true)
@@ -29,7 +29,9 @@ export const login = (username, password, callback) => {
   bodyFormData.append('IBIB_userid', username)
   bodyFormData.append('IBIB_password', password)
   var retornoLogin = '';
-  axios.post(_contextlocation + '/ibi_apps/service/wf_security_check.jsp', bodyFormData, { responseType: 'document' })
+  const instance = axios.create()
+  instance.defaults.timeout = 1000;
+  instance.post(_contextlocation + '/ibi_apps/service/wf_security_check.jsp', bodyFormData, { responseType: 'document' })
     .then((_data) => {
       retornoLogin = _data.data;
       if (retornoLogin.querySelector('result').getAttribute('value') > 0) {
@@ -45,6 +47,6 @@ export const login = (username, password, callback) => {
       } else {
         callback(retornoLogin)
       }
-    })
+    }).catch( error => erro(error))
 
 }
