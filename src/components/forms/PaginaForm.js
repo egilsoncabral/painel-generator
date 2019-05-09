@@ -25,19 +25,19 @@ class PaginaForm extends Component {
         // do something with both responses
         if (itemMenuRes.data && itemMenuRes.data.length > 0 ) {
             for (const menu of itemMenuRes.data) {
-                selectOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+                selectOption.push({value: menu, label: menu.nome , name:"conteudo"})                    
             }
             this.setState({menuOptions: selectOption})
         }
         
         if (indicadoresRes.data && indicadoresRes.data.length > 0 ) {
             for (const menu of indicadoresRes.data) {
-                indicadoresOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+                indicadoresOption.push({value: menu, label: menu.nome , name:"conteudo"})                    
             }
         }
         if (graficosRes.data && graficosRes.data.length > 0 ) {
             for (const menu of graficosRes.data) {
-                indicadoresOption.push({value: menu.nome !== null ? menu.nome.toLowerCase(): '', label: menu.nome , name:"conteudo"})                    
+                indicadoresOption.push({value: menu, label: menu.nome , name:"conteudo"})                    
             }
         }
         this.setState({indicadoresOptions: indicadoresOption})
@@ -99,17 +99,18 @@ class PaginaForm extends Component {
                             <label htmlFor="inputCity">Menus</label>
                                 <Select
                                     isMulti
-                                    value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.filter(option => option.label)}
+                                    value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.map(option => {return {label:option.nome, value: option}})}
                                     onChange={this.props.handleInputChange}
                                     placeholder="Selecione"
                                     options={this.state.menuOptions}
+                                    getOptionValue={option => option.name}
                                 />
                             </div>
                             <div className="form-group col-md-12" style={this.state.selectedRadio === 1 ? {display:'block'} : {display:'none'}}>
                             <label htmlFor="inputCity">Indicadores/Gráficos</label>
                                 <Select
                                     isMulti
-                                    value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.filter(option => option.label)}
+                                    value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.map(option => {return {label:option.nome, value: option}})}
                                     onChange={this.props.handleInputChange}
                                     placeholder="Selecione"
                                     options={this.state.indicadoresOptions}

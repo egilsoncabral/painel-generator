@@ -29,10 +29,15 @@ class ModalEdicao extends  Component{
     handleInputChange(event) {
         const target = event.target !== undefined ? event.target : event;
         let formAtual = this.state.form
-        if (Array.isArray(target)) {
-            if (target.length > 0) {
-                formAtual[target[0].name] = target
-            }
+        if (Array.isArray(target) && target.length > 0) {
+            if (formAtual[target[0].name] === undefined) {
+                formAtual[target[0].name] = []
+            }    
+            for (const element of target) {
+                if (element.hasOwnProperty('name')) {
+                   formAtual[element.name].push(element.value)
+                }
+            };
         }else{
             formAtual[target.name] = target.value
         }
