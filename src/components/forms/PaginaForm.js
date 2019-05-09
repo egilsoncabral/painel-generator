@@ -99,18 +99,17 @@ class PaginaForm extends Component {
                             <label htmlFor="inputCity">Menus</label>
                                 <Select
                                     isMulti
-                                    value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.map(option => {return {label:option.nome, value: option}})}
+                                    value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.map(option => {option.label = option.nome; return option})}
                                     onChange={this.props.handleInputChange}
                                     placeholder="Selecione"
                                     options={this.state.menuOptions}
-                                    getOptionValue={option => option.name}
                                 />
                             </div>
                             <div className="form-group col-md-12" style={this.state.selectedRadio === 1 ? {display:'block'} : {display:'none'}}>
                             <label htmlFor="inputCity">Indicadores/Gráficos</label>
                                 <Select
                                     isMulti
-                                    value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.map(option => {return {label:option.nome, value: option}})}
+                                    value={this.props.form && this.props.form.conteudo && this.props.form.conteudo.filter(option => option.nome)}
                                     onChange={this.props.handleInputChange}
                                     placeholder="Selecione"
                                     options={this.state.indicadoresOptions}
