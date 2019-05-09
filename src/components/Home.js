@@ -54,12 +54,6 @@ class Home extends Component {
       .catch(error => console.log(error));
   };
 
-  removerItemMenu = comId => {    
-    let items = this.state.selectedMenu;
-    items.body = this.state.selectedMenu.body.filter(item => item._id !== comId);
-    this.setState({selectedMenu: items})
-  }
-
   render() {
     return (
       <div id="pnlHome">

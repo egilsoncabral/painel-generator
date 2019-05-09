@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 // import PropTypes from 'prop-types';
 import {Button, Modal} from 'react-bootstrap'
 import '../assets/css/modal.css'
-import axios from 'axios'
+
+import DBManager from '../utils/DBManager';
 
 class ModalRemocao extends  Component{
 
@@ -13,12 +14,16 @@ class ModalRemocao extends  Component{
 
 
     removeItens(){
-        let itensRemocao = this.props.itens
-        let link = this.props.selectedMenu.link
-        axios.delete(`http://localhost:3000/api/${link}`, {data: itensRemocao}).then((response) =>{
-            this.props.cargaItems(link) 
+        let daColecao = this.props.selectedMenu.link
+
+        DBManager.removerItem(this.props.itens, daColecao, (resposta) => {            
+          if (resposta.status === 200) {
+            this.props.cargaItems(daColecao)
             this.props.onHide()
-        }).catch((error) => console.log(error))
+          } else {
+             console.log("Ocorreu um erro.")
+          }
+        })
     }
 
     render(){
@@ -38,16 +43,16 @@ class ModalRemocao extends  Component{
                 </Modal.Header>
                     <Modal.Body>
                         <div>
-                        
+
                         <ul className="nav">
-                            {this.props.itens ? this.props.itens.map(item => 
+                            {this.props.itens ? this.props.itens.map(item =>
                                 <li key={item.nome} className="list-group-item">{item.nome}</li>
                             ) : ''}
                         </ul>
-                        </div>                        
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.props.onHide}>Fechar</Button>
+                        <Button onClick={this.props.onHide}>Cancelar</Button>
                         <Button type="submit" variant="primary" onClick={this.removeItens}>Remover</Button>
                     </Modal.Footer>
             </Modal>

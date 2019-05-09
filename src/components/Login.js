@@ -57,6 +57,11 @@ class Login extends React.Component {
         this.showErroAuth(true, 'Usuário ou Senha inválidos')
       }
       document.body.style.cursor='default';
+    }, (error) => {
+      this.iniciarAutenticacao(false);
+      document.body.style.cursor='default';
+      this.setState({showErro: true});
+      this.setState({msgErroAuth : "Ocorreu o seguinte erro: " + error.message });      
     })
 
 

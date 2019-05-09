@@ -2,14 +2,15 @@ import React, {Component} from 'react'
 // import PropTypes from 'prop-types';
 import {Button, Modal} from 'react-bootstrap'
 import '../assets/css/modal.css'
-import axios from 'axios'
+// import axios from 'axios'
+import DBManager from '../utils/DBManager'
 
 class ModalEdicao extends  Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            
+
         };
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -24,7 +25,7 @@ class ModalEdicao extends  Component{
             this.setState({ form: {}})
         }
       }
-    
+
 
     handleInputChange(event) {
         const target = event.target !== undefined ? event.target : event;
@@ -45,13 +46,14 @@ class ModalEdicao extends  Component{
             form: formAtual
         });
     }
+
     handleChange = (value) => {
         let formAtual = this.state.form
         if (formAtual) {
             formAtual.icone = value
         this.setState({ form: formAtual});
         }
-        
+
     }
 
     handleSubmit(event) {
@@ -61,15 +63,20 @@ class ModalEdicao extends  Component{
         if (form.subMenu === undefined && link === 'items_menu') {
             form.subMenu = []
         }
-        
-        axios.post(`http://localhost:3000/api/${link}`, form, { responseType: 'document' }).then((response) =>{
-            this.props.cargaItems(link)    
-            this.props.onHide()
-        }).catch((error) => console.log(error))
+
+        DBManager.addItem(form, link, (resposta) => {
+            if (resposta.status === 200) {
+                this.props.cargaItems(link)
+                this.props.onHide()
+            } else {
+                console.log("Erro message")
+            }
+        });
+
     }
 
     render(){
-        
+
         return (
             <Modal
                 show={this.props.show}
@@ -89,7 +96,7 @@ class ModalEdicao extends  Component{
                             <this.props.component handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} handleChange={this.handleChange} isDisable={this.props.isDisable}
                             form={this.state.form}/>
                         </React.Fragment>
-                        
+
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.props.onHide}>Fechar</Button>
