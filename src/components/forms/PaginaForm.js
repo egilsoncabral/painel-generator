@@ -103,6 +103,7 @@ class PaginaForm extends Component {
                                     onChange={this.props.handleInputChange}
                                     placeholder="Selecione"
                                     options={this.state.menuOptions}
+                                    name="conteudo"
                                 />
                             </div>
                             <div className="form-group col-md-12" style={this.state.selectedRadio === 1 ? {display:'block'} : {display:'none'}}>
@@ -113,6 +114,7 @@ class PaginaForm extends Component {
                                     onChange={this.props.handleInputChange}
                                     placeholder="Selecione"
                                     options={this.state.indicadoresOptions}
+                                    name="conteudo"
                                 />
                         </div>
 

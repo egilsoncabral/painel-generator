@@ -27,18 +27,19 @@ class ModalEdicao extends  Component{
       }
 
 
-    handleInputChange(event) {
+    handleInputChange(event, selectedOption) {
         const target = event.target !== undefined ? event.target : event;
         let formAtual = this.state.form
-        if (Array.isArray(target) && target.length > 0) {
-            if (formAtual[target[0].name] === undefined) {
-                formAtual[target[0].name] = []
-            }    
-            for (const element of target) {
-                if (element.hasOwnProperty('name')) {
-                   formAtual[element.name].push(element.value)
-                }
-            };
+        if (Array.isArray(target)) {
+            if (selectedOption.action === 'select-option') {
+                if (formAtual[selectedOption.name] === undefined) {
+                    formAtual[selectedOption.name] = []
+                }    
+                formAtual[selectedOption.name].push(selectedOption.option.value)
+            }else{
+                formAtual[selectedOption.name] = formAtual[selectedOption.name].filter(val => val.nome !== selectedOption.removedValue.nome)
+            }
+            
         }else{
             formAtual[target.name] = target.value
         }
@@ -57,21 +58,25 @@ class ModalEdicao extends  Component{
     }
 
     handleSubmit(event) {
-        event.preventDefault()
-        let form = this.state.form
-        let link = this.props.selectedMenu.link
-        if (form.subMenu === undefined && link === 'items_menu') {
-            form.subMenu = []
+        for (const elemento of event.target.elements) {
+            console.log(elemento)
         }
+        debugger
+        // event.preventDefault()
+        // let form = this.state.form
+        // let link = this.props.selectedMenu.link
+        // if (form.subMenu === undefined && link === 'items_menu') {
+        //     form.subMenu = []
+        // }
 
-        DBManager.addItem(form, link, (resposta) => {
-            if (resposta.status === 200) {
-                this.props.cargaItems(link)
-                this.props.onHide()
-            } else {
-                console.log("Erro message")
-            }
-        });
+        // DBManager.addItem(form, link, (resposta) => {
+        //     if (resposta.status === 200) {
+        //         this.props.cargaItems(link)
+        //         this.props.onHide()
+        //     } else {
+        //         console.log("Erro message")
+        //     }
+        // });
 
     }
 

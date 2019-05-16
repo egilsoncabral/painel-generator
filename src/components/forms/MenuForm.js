@@ -74,10 +74,11 @@ class MenuForm extends Component {
                         <label htmlFor="inputCity">Sub Menu</label>
                             <Select
                                 isMulti
-                                value={this.props.form && this.props.form.subMenu && this.props.form.subMenu.filter(option => option.label)}
+                                value={this.props.form && this.props.form.subMenu && this.props.form.subMenu.map(option => {option.label = option.nome; return option})}
                                 onChange={this.props.handleInputChange}
                                 placeholder="Selecione"
                                 options={this.state.menuOptions}
+                                name="subMenu"
                             />
                         </div>
 

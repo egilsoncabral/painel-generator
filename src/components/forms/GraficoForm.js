@@ -106,6 +106,7 @@ class GraficoForm extends Component {
                             onChange={this.props.handleInputChange}
                             placeholder="Selecione"
                             options={this.state.listaCamposMaster}
+                            name="camposMaster"
                         />
                     </div>
                 </div>

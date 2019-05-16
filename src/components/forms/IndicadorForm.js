@@ -31,7 +31,6 @@ class IndicadorForm extends Component {
   }
 
   handleMasterSelected(event){
-    this.setState({listaCamposMaster:[]})
     this.props.handleInputChange([{name:'camposMaster', value:''}])
     axios.get(`${_contextlocation}/ibi_apps${_urlContent}${_ibiapp}comum&BIP_item=lista_nome_colunas.fex&TABELA=${event.label}&rnd=${Math.random()}`).then((response) =>{
       let selectOption = []
@@ -150,8 +149,8 @@ class IndicadorForm extends Component {
                       <Select
                         isMulti
                         isDisabled={this.state.listaCamposMaster.length === 0 && this.props.isDisable}
-                        value={this.props.form && this.props.form.camposMaster && this.props.form.camposMaster.filter(option => option.label)}
-                        onChange={this.props.handleInputChange}
+                        value={this.props.form && this.props.form.camposMaster && this.props.form.camposMaster.map(option =>  {return {label:option}})}
+                        onChange={this.props.handleInputChange.bind(this)}
                         placeholder="Selecione"
                         options={this.state.listaCamposMaster}
                       />
